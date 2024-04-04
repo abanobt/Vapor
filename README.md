@@ -4,3 +4,5 @@
 ### This project is to demonstrate a sample MySQL within a Java application.
 
 ### More details added shortly.
+
+#### Using Java Swing for this Project, Might also test JavaFX to see what might work best - Chris.
