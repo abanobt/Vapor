@@ -1,3 +1,5 @@
+package main;
+
 import java.awt.Component;
 import java.awt.Container;
 import java.awt.Dimension;
@@ -15,7 +17,7 @@ public class PercentLayout implements LayoutManager2 {
         if (constraints instanceof PercentConstraints) {
             constraintsTable.put(comp, (PercentConstraints) constraints);
         } else {
-            // TODO: throw error
+            throw new IllegalArgumentException("Argument constraints must be of type PercentConstraints");
         }
     }
 
