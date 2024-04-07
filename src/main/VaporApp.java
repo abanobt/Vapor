@@ -28,12 +28,12 @@ public class VaporApp extends JFrame {
     }
 
     public void start() {
-        getContentPane().add(new LogIn(), PercentConstraints.FULL);
+        getContentPane().add(new LogInUI(), PercentConstraints.FULL);
     }
 
     public void loggedIn() {
         getContentPane().removeAll();
-        getContentPane().add(new MainScene(),PercentConstraints.FULL);
+        getContentPane().add(new MainUI(),PercentConstraints.FULL);
         revalidate();
     }
 }

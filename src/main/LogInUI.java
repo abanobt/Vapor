@@ -12,7 +12,7 @@ import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.util.Arrays;
 
-public class LogIn extends JPanel {
+public class LogInUI extends JPanel {
     private static final PercentConstraints ICON_BOUNDS =  new PercentConstraints(.3f, .225f, .1f, .1f);
     private static final PercentConstraints LOG_IN_LABEL_BOUNDS =  new PercentConstraints(.3f, .225f, .4f, .1f);
     private static final PercentConstraints USERNAME_FIELD_TITLE_BOUNDS =  new PercentConstraints(.3f,.355f, .4f, .02f);
@@ -24,7 +24,7 @@ public class LogIn extends JPanel {
     private final JTextField usernameField;
     private final JPasswordField passwordField;
 
-    public LogIn() {
+    public LogInUI() {
         setLayout(new PercentLayout());
 
         Font font = getFont().deriveFont(35f);
@@ -45,7 +45,7 @@ public class LogIn extends JPanel {
         }}, PASSWORD_FIELD_BOUNDS);
         
         add(new JButton("Log In"){{
-            addActionListener(LogIn.this::onLogIn);
+            addActionListener(LogInUI.this::onLogIn);
             setBackground(Color.BLACK);
             setForeground(Color.WHITE);
             setFont(font);
