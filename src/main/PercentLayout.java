@@ -3,8 +3,6 @@ package main;
 import java.awt.Component;
 import java.awt.Container;
 import java.awt.Dimension;
-import java.awt.GridBagConstraints;
-import java.awt.LayoutManager;
 import java.awt.LayoutManager2;
 import java.awt.Rectangle;
 import java.util.Hashtable;
@@ -59,16 +57,17 @@ public class PercentLayout implements LayoutManager2 {
 
     @Override
     public void layoutContainer(Container parent) {
-        Rectangle parentBounds = parent.getBounds();
+        double parentWidth = parent.getWidth();
+        double parentHeight = parent.getHeight();
         for (Component comp : parent.getComponents()) {
             PercentConstraints constraints = constraintsTable.get(comp);
             if (constraints != null) {
                 comp.setBounds(
                     new Rectangle(
-                        (int)Math.ceil(parentBounds.getWidth() * constraints.x()),
-                        (int)Math.ceil(parentBounds.getHeight() * constraints.y()),
-                        (int)Math.ceil(parentBounds.getWidth() * constraints.w()),
-                        (int)Math.ceil(parentBounds.getHeight() * constraints.h())
+                        (int)Math.ceil(parentWidth * constraints.x()),
+                        (int)Math.ceil(parentHeight * constraints.y()),
+                        (int)Math.ceil(parentWidth * constraints.w()),
+                        (int)Math.ceil(parentHeight * constraints.h())
                     )
                 );
             }
