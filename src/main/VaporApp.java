@@ -3,9 +3,13 @@ package main;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import java.awt.Dimension;
+import java.util.Random;
 
 public class VaporApp extends JFrame {
+    public static Random REMOVE_ME = new Random(); // TODO: remove
+
     public static VaporApp APP_SINGLETON;
+
     public static final ImageIcon ICON = new ImageIcon("res/icon.png");
     private static final int INIT_WIDTH = 1280;
     private static final int INIT_HEIGHT = 720;
