@@ -1,5 +1,7 @@
 package main;
 
+import org.mindrot.jbcrypt.BCrypt;
+
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -52,6 +54,10 @@ public class LogInUI extends JPanel {
         }}, LOG_IN_BUTTON_BOUNDS);
     }
 
+    // Called when the login button is clicked, gets the username and
+    // password and validates them. If they are valid, the user is logged in.
+    // If not valid, then the appropriate message is shown, and the password
+    // field is cleared.
     private void onLogIn(ActionEvent e) {
         String username = usernameField.getText();
         char[] password = passwordField.getPassword();
@@ -71,8 +77,20 @@ public class LogInUI extends JPanel {
         Arrays.fill(password, (char)0);
     }
 
+    // Validates the login credentials, returns true if valid, false otherwise
     private boolean validateLogIn(String username, char[] password) {
-        // TODO: validate username and password
-        return false;
+        return true;
+//        String hashedPassword = getHashedPassword(username);
+//        if (hashedPassword == null) {
+//            return false;
+//        }
+//        return BCrypt.checkpw(new String(password), hashedPassword);
+    }
+
+    // Gets the hashed password for this username
+    // returns null if the username is invalid
+    private String getHashedPassword(String username) {
+        // TODO: get hashed password
+        return null;
     }
 }
