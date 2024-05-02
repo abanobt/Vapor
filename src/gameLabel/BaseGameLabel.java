@@ -24,16 +24,22 @@ public abstract class BaseGameLabel extends JComponent {
     }};
 
     private final int id;
-    private final String title;
-    private final String genre;
+    protected final String title;
     private final String[] lines;
+
+    // These are used for searching
+    private final String genre;
+    private final String tags;
+    private final String description;
 
     public BaseGameLabel(int id, String title, String developer, String publisher,
                          String genre, String tags, String releaseDate, String description,
                          float price, String platforms, float avgRating) {
         this.id = id;
         this.title = title;
-        this.genre = genre;
+        this.genre = genre.toLowerCase();
+        this.tags = tags.toLowerCase();
+        this.description = description.toLowerCase();
         lines = new String[5];
         lines[0] = "Price: $"+MONEY_FORMAT.format(price) + " | Rating: "+RATING_FORMAT.format(avgRating);
         lines[1] = "Genre: "+genre + " | Tags: "+tags;
@@ -47,15 +53,20 @@ public abstract class BaseGameLabel extends JComponent {
         setMaximumSize(new Dimension(2000, 160));
     }
 
-    public final String getTitle() {
-        return title;
-    }
-
-    public final String getGenre() {
-        return genre;
-    }
-
     public final int getGameId() { return id; }
+
+    /**
+     * Checks if the game's title, genre, tags, or description contain the query
+     * @param query A search query
+     * @return true if the game's title, genre, tags, or description contains the query, false otherwise
+     */
+    public boolean contains(String query) {
+        // TODO: maybe use sql to get these values instead of storing them locally
+        return title.toLowerCase().contains(query)
+                || genre.contains(query)
+                || tags.contains(query)
+                || description.contains(query);
+    }
 
     @Override
     protected void paintComponent(Graphics g) {
