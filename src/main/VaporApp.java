@@ -11,8 +11,11 @@ public class VaporApp extends JFrame {
     public static VaporApp APP_SINGLETON;
 
     public static final ImageIcon ICON = new ImageIcon("res/icon.png");
+
     private static final int INIT_WIDTH = 1280;
     private static final int INIT_HEIGHT = 720;
+
+    private MainUI mainUI;
 
     public static void main(String[] args) {
         APP_SINGLETON = new VaporApp();
@@ -31,13 +34,20 @@ public class VaporApp extends JFrame {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     }
 
-    public void start() {
+    private void start() {
         getContentPane().add(new LogInUI(), PercentConstraints.FULL);
     }
 
     public void loggedIn() {
         getContentPane().removeAll();
-        getContentPane().add(new MainUI(),PercentConstraints.FULL);
+        mainUI = new MainUI();
+        getContentPane().add(mainUI,PercentConstraints.FULL);
         revalidate();
+    }
+
+    public void refreshWishlist() {
+        if (mainUI == null) { return; }
+
+        mainUI.refreshWishlist();
     }
 }
