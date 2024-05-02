@@ -90,7 +90,7 @@ public class LogInUI extends JPanel {
     // Gets the hashed password for this username
     // returns null if the username is invalid
     private String getHashedPassword(String username) {
-        // TODO: get hashed password
+        // SQL: get hashed password
         return null;
     }
 }
