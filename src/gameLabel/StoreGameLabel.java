@@ -11,6 +11,7 @@ import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.Graphics;
 import java.text.DecimalFormat;
+import java.util.Locale;
 
 public class StoreGameLabel extends BaseGameLabel {
     private final JButton purchaseButton;
@@ -18,21 +19,24 @@ public class StoreGameLabel extends BaseGameLabel {
     public StoreGameLabel(int id, String title, String developer, String publisher,
                           String genre, String tags, String releaseDate, String description,
                           float price, String platforms, float avgRating) {
-        super(id, title, developer, publisher, genre, tags, releaseDate, developer, price, platforms, avgRating);
+        super(id, title, developer, publisher, genre, tags, releaseDate, description, price, platforms, avgRating);
+
         add(purchaseButton = new JButton() {{
             addActionListener(e -> {
                 //SQL: add/remove item to/from cart
+                // VaporApp.APP_SINGLETON.refreshCart(); // Refresh wishlist
             });
         }});
         add(wishlistButton = new JButton() {{
             addActionListener(e -> {
                 //SQL: add/remove item to/from wishlist
+                // VaporApp.APP_SINGLETON.refreshWishlist(); // Refresh wishlist
             });
         }});
     }
 
     protected void updateButtons(Graphics g) {
-        if (VaporApp.REMOVE_ME.nextBoolean()) { // SQL: check if game is owned
+        if (false) { // SQL: check if game is owned
             purchaseButton.setVisible(false);
             wishlistButton.setVisible(false);
             return;
@@ -45,7 +49,7 @@ public class StoreGameLabel extends BaseGameLabel {
         purchaseButton.setBounds(x, 20, width, height);
         wishlistButton.setBounds(x, 20 + height + 20, width, height);
 
-        if (VaporApp.REMOVE_ME.nextBoolean()) { // SQL: check if game is in cart
+        if (false) { // SQL: check if game is in cart
             purchaseButton.setText("Remove from Cart");
             purchaseButton.setBackground(Color.RED);
         } else {
@@ -53,7 +57,7 @@ public class StoreGameLabel extends BaseGameLabel {
             purchaseButton.setBackground(Color.GREEN);
         }
 
-        if (VaporApp.REMOVE_ME.nextBoolean()) { // SQL: check if game is in wishlist
+        if (true) { // SQL: check if game is in wishlist
             wishlistButton.setText("Remove from Wishlist");
             wishlistButton.setBackground(Color.RED);
         } else {

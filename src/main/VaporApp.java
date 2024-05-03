@@ -1,13 +1,13 @@
 package main;
 
+import ui.MainUI;
+
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import java.awt.Dimension;
 import java.util.Random;
 
 public class VaporApp extends JFrame {
-    public static Random REMOVE_ME = new Random(); // TODO: remove
-
     public static VaporApp APP_SINGLETON;
 
     public static final ImageIcon ICON = new ImageIcon("res/icon.png");
@@ -49,5 +49,11 @@ public class VaporApp extends JFrame {
         if (mainUI == null) { return; }
 
         mainUI.refreshWishlist();
+    }
+
+    public void refreshCart() {
+        if (mainUI == null) { return; }
+
+        mainUI.refreshCart();
     }
 }

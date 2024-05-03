@@ -12,7 +12,7 @@ public class WishlistGameLabel extends BaseGameLabel {
     public WishlistGameLabel(int id, String title, String developer, String publisher,
                              String genre, String tags, String releaseDate, String description,
                              float price, String platforms, float avgRating) {
-        super(id, title, developer, publisher, genre, tags, releaseDate, developer, price, platforms, avgRating);
+        super(id, title, developer, publisher, genre, tags, releaseDate, description, price, platforms, avgRating);
         add(purchaseButton = new JButton() {{
             addActionListener(e -> {
                 // SQL: add/remove item to/from cart
@@ -23,12 +23,13 @@ public class WishlistGameLabel extends BaseGameLabel {
             setBackground(Color.RED);
             addActionListener(e -> {
                 // SQL: remove item from wishlist
+                // VaporApp.APP_SINGLETON.refreshWishlist(); // Refresh wishlist
             });
         }});
     }
 
     protected void updateButtons(Graphics g) {
-        if (VaporApp.REMOVE_ME.nextBoolean()) { // SQL: check if game is owned or game is not in wishlist
+        if (false) { // SQL: check if game is owned or game is not in wishlist
             setVisible(false);
             // SQL: remove game from wishlist if it is owned
             VaporApp.APP_SINGLETON.refreshWishlist(); // Refresh wishlist
@@ -42,7 +43,7 @@ public class WishlistGameLabel extends BaseGameLabel {
         purchaseButton.setBounds(x, 20, width, height);
         wishlistButton.setBounds(x, 20 + height + 20, width, height);
 
-        if (VaporApp.REMOVE_ME.nextBoolean()) { // SQL: check if game is in cart
+        if (false) { // SQL: check if game is in cart
             purchaseButton.setText("Remove from Cart");
             purchaseButton.setBackground(Color.RED);
         } else {
