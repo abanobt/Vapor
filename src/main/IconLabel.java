@@ -13,8 +13,7 @@ public class IconLabel extends JComponent {
     private Image icon;
     private final boolean enforceAspectRatio;
 
-    public IconLabel(Image icon, boolean enforceAspectRatio) {
-        this.icon = icon;
+    public IconLabel(boolean enforceAspectRatio) {
         this.enforceAspectRatio = enforceAspectRatio;
     }
 

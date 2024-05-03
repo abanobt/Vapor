@@ -31,7 +31,7 @@ public class LogInUI extends JPanel {
 
         Font font = getFont().deriveFont(35f);
 
-        add(new IconLabel(VaporApp.ICON, true), ICON_BOUNDS);
+        add(new IconLabel(true) {{ setIcon(VaporApp.ICON.getImage()); }}, ICON_BOUNDS);
         add(new JLabel("Log In", SwingConstants.CENTER) {{
             setFont(font);
         }}, LOG_IN_LABEL_BOUNDS);
