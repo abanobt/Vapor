@@ -1,36 +1,70 @@
 package com.loginapp.database;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 
 public class UserDAO {
 
-    // Method to get the hashed password for a username
-    public static String getHashedPassword(String username) {
-        String hashedPassword = null;
-        String sql = "SELECT password FROM users WHERE username = ?";
-        
+    public User getUser(int id) {
+        User user = null;
+        String sql = "SELECT * FROM users WHERE id = ?";
         try (Connection conn = DatabaseConnection.getConnection();
              PreparedStatement pstmt = conn.prepareStatement(sql)) {
-            
-            pstmt.setString(1, username);
+             
+            pstmt.setInt(1, id);
             ResultSet rs = pstmt.executeQuery();
-            
             if (rs.next()) {
-                hashedPassword = rs.getString("password");
+                user = new User(rs.getInt("id"), rs.getString("username"), rs.getString("password"), rs.getString("email"));
             }
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        
-        return hashedPassword;
+        return user;
     }
 
-    // Method to verify if the username and password combination is correct
-    public static boolean validateUser(String username, String password) {
-        String hashedPassword = getHashedPassword(username);
-        return hashedPassword != null && HashingUtils.checkPassword(password, hashedPassword);
+    public boolean insertUser(User user) {
+        String sql = "INSERT INTO users (username, password, email) VALUES (?, ?, ?)";
+        try (Connection conn = DatabaseConnection.getConnection();
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+             
+            pstmt.setString(1, user.getUsername());
+            pstmt.setString(2, HashingUtils.hashPassword(user.getPassword()));
+            pstmt.setString(3, user.getEmail());
+            pstmt.executeUpdate();
+            return true;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+
+    public boolean updateUser(User user) {
+        String sql = "UPDATE users SET username = ?, password = ?, email = ? WHERE id = ?";
+        try (Connection conn = DatabaseConnection.getConnection();
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+             
+            pstmt.setString(1, user.getUsername());
+            pstmt.setString(2, HashingUtils.hashPassword(user.getPassword()));
+            pstmt.setString(3, user.getEmail());
+            pstmt.setInt(4, user.getId());
+            pstmt.executeUpdate();
+            return true;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+
+    public boolean deleteUser(int id) {
+        String sql = "DELETE FROM users WHERE id = ?";
+        try (Connection conn = DatabaseConnection.getConnection();
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+             
+            pstmt.setInt(1, id);
+            pstmt.executeUpdate();
+            return true;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false;
+        }
     }
 }
