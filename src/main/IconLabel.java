@@ -10,12 +10,16 @@ import java.awt.Image;
 import java.awt.Rectangle;
 
 public class IconLabel extends JComponent {
-    private final Image icon;
+    private Image icon;
     private final boolean enforceAspectRatio;
 
     public IconLabel(ImageIcon icon, boolean enforceAspectRatio) {
         this.icon = icon.getImage();
         this.enforceAspectRatio = enforceAspectRatio;
+    }
+
+    public void setIcon(Image icon) {
+        this.icon = icon;
     }
 
     @Override
