@@ -5,6 +5,7 @@ import gameLabel.StoreGameLabel;
 import main.PercentConstraints;
 import main.PercentLayout;
 
+import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
 import javax.swing.ImageIcon;
 import javax.swing.JPanel;
@@ -22,6 +23,7 @@ public class StoreUI extends JPanel {
 
         gamesPanel = new JPanel() {{
             setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
+            setBorder(BorderFactory.createTitledBorder("Store Games"));
             // SQL: retrieve all games
             for (int i = 0; i < 4; i ++) {
                 add(new StoreGameLabel(i, SampleData.TITLES[i],

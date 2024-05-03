@@ -6,6 +6,7 @@ import gameLabel.WishlistGameLabel;
 import main.PercentConstraints;
 import main.PercentLayout;
 
+import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -23,6 +24,7 @@ public class CartUI extends JPanel {
 
         gamesPanel = new JPanel() {{
             setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
+            setBorder(BorderFactory.createTitledBorder("Cart Items"));
         }};
 
         add(new GameLabelSearchField(gamesPanel),

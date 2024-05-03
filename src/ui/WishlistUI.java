@@ -6,6 +6,7 @@ import gameLabel.WishlistGameLabel;
 import main.PercentConstraints;
 import main.PercentLayout;
 
+import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
 import javax.swing.ImageIcon;
 import javax.swing.JPanel;
@@ -21,6 +22,7 @@ public class WishlistUI extends JPanel {
 
         gamesPanel = new JPanel() {{
             setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
+            setBorder(BorderFactory.createTitledBorder("Wishlisted Games"));
         }};
 
         add(new GameLabelSearchField(gamesPanel),
