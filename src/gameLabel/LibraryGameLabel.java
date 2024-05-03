@@ -22,7 +22,12 @@ public class LibraryGameLabel extends BaseGameLabel {
         super(id, title, developer, publisher, genre, tags, releaseDate, description, price, platforms, avgRating);
         add(playButton = new JButton() {{
             addActionListener(e -> {
-                // SQL: play/close game
+                boolean gameSessionActive = false; // SQL: check if game session is active
+                if (gameSessionActive) {
+                    VaporApp.APP_SINGLETON.closeGame(id);
+                } else {
+                    VaporApp.APP_SINGLETON.launchGame(id);
+                }
             });
         }});
 

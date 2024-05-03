@@ -56,4 +56,16 @@ public class VaporApp extends JFrame {
 
         mainUI.refreshCart();
     }
+
+    public void closeGame(int id) {
+        if (mainUI == null) { return; }
+
+        mainUI.closeGame(id);
+    }
+
+    public void launchGame(int id) {
+        if (mainUI == null) { return; }
+
+        mainUI.launchGame(id);
+    }
 }
