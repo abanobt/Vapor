@@ -4,6 +4,7 @@ import main.VaporApp;
 
 import javax.swing.JButton;
 import javax.swing.JLabel;
+import javax.swing.SwingConstants;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.text.DecimalFormat;
@@ -25,7 +26,10 @@ public class LibraryGameLabel extends BaseGameLabel {
             });
         }});
 
-        add(timeLabel = new JLabel());
+        add(timeLabel = new JLabel() {{
+            setHorizontalAlignment(SwingConstants.CENTER);
+            setVerticalAlignment(SwingConstants.CENTER);
+        }});
     }
 
     protected void updateButtons(Graphics g) {
