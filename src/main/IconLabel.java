@@ -24,6 +24,7 @@ public class IconLabel extends JComponent {
     @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
+        if (icon == null) { return; }
         Rectangle bounds = getBounds();
         if (enforceAspectRatio) {
             float aspectRatio = icon.getWidth(null) / (float)icon.getHeight(null);
