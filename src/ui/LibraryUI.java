@@ -1,6 +1,5 @@
 package ui;
 
-import gameLabel.CartGameLabel;
 import gameLabel.GameLabelSearchField;
 import gameLabel.LibraryGameLabel;
 import main.GameInstance;
@@ -10,10 +9,8 @@ import main.PercentLayout;
 import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
 import javax.swing.ImageIcon;
-import javax.swing.JButton;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
-import java.awt.Color;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -66,11 +63,7 @@ public class LibraryUI extends JPanel {
         gamesPanel.removeAll();
         for (int i = 0; i < 4; i ++) {
             // SQL: retrieve games in cart
-            gamesPanel.add(new LibraryGameLabel(i, SampleData.TITLES[i],
-                    SampleData.DEVELOPERS[i], SampleData.PUBLISHERS[i],
-                    SampleData.GENRE[i], SampleData.TAGS[i],
-                    SampleData.RELEASE_DATE[i],SampleData. DESCRIPTION[i], SampleData.PRICE[i],
-                    SampleData.PLATFORMS[i], SampleData.AVG_RATING[i]));
+            gamesPanel.add(new LibraryGameLabel(i, SampleData.TITLES[i]));
         }
     }
 }
