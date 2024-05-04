@@ -13,6 +13,7 @@ public class MainUI extends JTabbedPane {
     private final CartUI cartUI;
     private final LibraryUI libraryUI;
     private final ProfileUI profileUI;
+    private final FriendsUI friendsUI;
 
     public MainUI() {
         addTab("Store", StoreUI.STORE_ICON, storeUI = new StoreUI(), "Store (Ctrl + S)", KeyEvent.CTRL_DOWN_MASK | KeyEvent.VK_S);
@@ -20,7 +21,7 @@ public class MainUI extends JTabbedPane {
         addTab("Cart", CartUI.CART_ICON, cartUI = new CartUI(), "Cart (Ctrl + C)", KeyEvent.CTRL_DOWN_MASK | KeyEvent.VK_C);
         addTab("Library", LibraryUI.LIBRARY_ICON, libraryUI = new LibraryUI(), "Library (Ctrl + L)", KeyEvent.CTRL_DOWN_MASK | KeyEvent.VK_L);
         addTab("Profile", ProfileUI.PROFILE_ICON, profileUI = new ProfileUI(), "Profile (Ctrl + P)", KeyEvent.CTRL_DOWN_MASK | KeyEvent.VK_P);
-//        addTab("Friends", StoreUI.STORE_ICON, new FriendsUI(), "Friends (Ctrl + F)", KeyEvent.CTRL_DOWN_MASK | KeyEvent.VK_F);
+        addTab("Friends", FriendsUI.FRIENDS_ICON, friendsUI = new FriendsUI(), "Friends (Ctrl + F)", KeyEvent.CTRL_DOWN_MASK | KeyEvent.VK_F);
     }
 
     private void addTab(String title, ImageIcon icon, JPanel ui, String tooltip, int mnemonic) {
@@ -44,5 +45,9 @@ public class MainUI extends JTabbedPane {
 
     public void launchGame(int id) {
         libraryUI.launchGame(id);
+    }
+
+    public void openMessages(int friendshipId) {
+        friendsUI.openMessages(friendshipId);
     }
 }

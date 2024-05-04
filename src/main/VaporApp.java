@@ -68,4 +68,10 @@ public class VaporApp extends JFrame {
 
         mainUI.launchGame(id);
     }
+
+    public void openMessages(int friendshipId) {
+        if (mainUI == null) { return; }
+
+        mainUI.openMessages(friendshipId);
+    }
 }
