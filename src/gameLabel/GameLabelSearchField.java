@@ -7,7 +7,7 @@ import java.awt.Component;
 import java.awt.event.ActionEvent;
 
 public class GameLabelSearchField extends JTextField {
-    private JPanel gameListUI;
+    private final JPanel gameListUI;
 
     public GameLabelSearchField(JPanel gameListUI) {
         this.gameListUI = gameListUI;
