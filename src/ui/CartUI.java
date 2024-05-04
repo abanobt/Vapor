@@ -15,7 +15,7 @@ import javax.swing.JScrollPane;
 import java.awt.Color;
 
 public class CartUI extends JPanel {
-    public static final ImageIcon CART_ICON = new ImageIcon("res/store.png");
+    public static final ImageIcon CART_ICON = new ImageIcon("res/cart.png");
 
     private final JPanel gamesPanel;
 

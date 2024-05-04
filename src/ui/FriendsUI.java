@@ -17,7 +17,7 @@ import javax.swing.JTextArea;
 // Settings
 // Transaction history
 public class FriendsUI extends JPanel {
-    public static final ImageIcon FRIENDS_ICON = new ImageIcon("res/store.png");
+    public static final ImageIcon FRIENDS_ICON = new ImageIcon("res/friends.png");
 
     private int openMessagesFriendshipId;
     private final JPanel friendsPanel;

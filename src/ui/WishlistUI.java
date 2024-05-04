@@ -12,7 +12,7 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 
 public class WishlistUI extends JPanel {
-    public static final ImageIcon WISHLIST_ICON = new ImageIcon("res/store.png");
+    public static final ImageIcon WISHLIST_ICON = new ImageIcon("res/wishlist.png");
 
     private final JPanel gamesPanel;
 

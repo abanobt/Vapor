@@ -17,7 +17,7 @@ import java.net.URL;
 // Settings
 // Transaction history
 public class AchievementsUI extends JPanel {
-    public static final ImageIcon ACHIEVEMENTS_ICON = new ImageIcon("res/store.png");
+    public static final ImageIcon ACHIEVEMENTS_ICON = new ImageIcon("res/achievements.png");
 
     private final JPanel achievementsPanel;
 

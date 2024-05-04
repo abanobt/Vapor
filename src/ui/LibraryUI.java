@@ -15,7 +15,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class LibraryUI extends JPanel {
-    public static final ImageIcon LIBRARY_ICON = new ImageIcon("res/store.png");
+    public static final ImageIcon LIBRARY_ICON = new ImageIcon("res/library.png");
 
     private final Map<Integer, GameInstance> activeGameInstances;
     private final JPanel gamesPanel;

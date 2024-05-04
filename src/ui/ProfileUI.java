@@ -21,7 +21,7 @@ import java.net.URL;
 // Settings
 // Transaction history
 public class ProfileUI extends JPanel {
-    public static final ImageIcon PROFILE_ICON = new ImageIcon("res/store.png");
+    public static final ImageIcon PROFILE_ICON = new ImageIcon("res/profile.png");
 
     private final JLabel infoLabel;
     private final IconLabel profilePic;
