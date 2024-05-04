@@ -52,4 +52,8 @@ public class MainUI extends JTabbedPane {
     public void openMessages(int friendshipId) {
         friendsUI.openMessages(friendshipId);
     }
+
+    public void refreshLibrary() {
+        libraryUI.refresh();
+    }
 }

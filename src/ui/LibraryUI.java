@@ -62,7 +62,7 @@ public class LibraryUI extends JPanel {
     public void refresh() {
         gamesPanel.removeAll();
         for (int i = 0; i < 4; i ++) {
-            // SQL: retrieve games in cart
+            // SQL: retrieve games in library
             gamesPanel.add(new LibraryGameLabel(i, SampleData.TITLES[i]));
         }
     }

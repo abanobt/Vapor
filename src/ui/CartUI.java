@@ -4,6 +4,7 @@ import label.CartGameLabel;
 import label.GameLabelSearchField;
 import main.PercentConstraints;
 import main.PercentLayout;
+import main.VaporApp;
 
 import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
@@ -33,8 +34,8 @@ public class CartUI extends JPanel {
             setBackground(Color.GREEN);
             addActionListener(e -> {
                 // SQL : add game to library, remove it from it cart, and remove it from wishlist if it's there
-                // refresh();
-                // refresh library as well
+                refresh();
+                VaporApp.APP_SINGLETON.refreshLibrary();
             });
         }}, new PercentConstraints(0.85f, 0.05f, .1f, .08f));
 

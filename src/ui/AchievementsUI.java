@@ -39,7 +39,7 @@ public class AchievementsUI extends JPanel {
     public void refresh() {
         achievementsPanel.removeAll();
         for (int i = 0; i < 4; i ++) {
-            // SQL: retrieve achievement history
+            // SQL: retrieve achievements
             achievementsPanel.add(new AchievementLabel(i, "Minecraft",
                     "achievementName", 5, "unlockCondition",
                     "This is a description", i % 2 == 0, "1/1/1111"));

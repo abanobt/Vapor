@@ -16,14 +16,16 @@ public class WishlistGameLabel extends BaseGameLabel {
         add(purchaseButton = new JButton() {{
             addActionListener(e -> {
                 // SQL: add/remove item to/from cart
+                 VaporApp.APP_SINGLETON.refreshCart();
             });
         }});
+
         add(wishlistButton = new JButton() {{
             setText("Remove from Wishlist");
             setBackground(Color.RED);
             addActionListener(e -> {
                 // SQL: remove item from wishlist
-                // VaporApp.APP_SINGLETON.refreshWishlist(); // Refresh wishlist
+                 VaporApp.APP_SINGLETON.refreshWishlist();
             });
         }});
     }

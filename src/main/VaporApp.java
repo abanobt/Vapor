@@ -74,4 +74,10 @@ public class VaporApp extends JFrame {
 
         mainUI.openMessages(friendshipId);
     }
+
+    public void refreshLibrary() {
+        if (mainUI == null) { return; }
+
+        mainUI.refreshLibrary();
+    }
 }
