@@ -18,8 +18,8 @@ public class GameLabelSearchField extends JTextField {
     private void onSearch(ActionEvent e) {
         String query = getText().toLowerCase();
         for (Component comp : gameListUI.getComponents()) {
-            if (comp instanceof BaseGameLabel) {
-                BaseGameLabel label = (BaseGameLabel) comp;
+            if (comp instanceof GameLabel) {
+                GameLabel label = (GameLabel) comp;
                 label.setVisible(query.isEmpty() || label.contains(query));
             }
         }

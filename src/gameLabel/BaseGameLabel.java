@@ -1,18 +1,13 @@
 package gameLabel;
 
-import main.VaporApp;
-
 import javax.swing.BorderFactory;
-import javax.swing.JButton;
-import javax.swing.JComponent;
 import javax.swing.border.BevelBorder;
-import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.Graphics;
 import java.text.DecimalFormat;
 
-public abstract class BaseGameLabel extends JComponent {
+public abstract class BaseGameLabel extends GameLabel {
     private static Font TitleFont = null;
 
     private static final DecimalFormat MONEY_FORMAT = new DecimalFormat() {{
@@ -60,6 +55,7 @@ public abstract class BaseGameLabel extends JComponent {
      * @param query A search query
      * @return true if the game's title, genre, tags, or description contains the query, false otherwise
      */
+    @Override
     public boolean contains(String query) {
         // TODO: maybe use sql to get these values instead of storing them locally
         return title.toLowerCase().contains(query)
