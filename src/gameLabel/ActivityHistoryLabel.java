@@ -25,7 +25,7 @@ public class ActivityHistoryLabel extends JComponent {
         setMaximumSize(new Dimension(2000, 80));
     }
 
-    public final int getTransactionId() { return id; }
+    public final int getActivityId() { return id; }
 
     @Override
     protected void paintComponent(Graphics g) {
