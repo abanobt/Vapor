@@ -1,4 +1,4 @@
-package gameLabel;
+package label;
 
 import main.VaporApp;
 

@@ -1,8 +1,7 @@
 package ui;
 
-import gameLabel.CartGameLabel;
-import gameLabel.GameLabelSearchField;
-import gameLabel.WishlistGameLabel;
+import label.CartGameLabel;
+import label.GameLabelSearchField;
 import main.PercentConstraints;
 import main.PercentLayout;
 

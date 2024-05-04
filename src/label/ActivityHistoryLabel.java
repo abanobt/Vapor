@@ -1,4 +1,4 @@
-package gameLabel;
+package label;
 
 import javax.swing.BorderFactory;
 import javax.swing.JComponent;
@@ -6,7 +6,6 @@ import javax.swing.border.BevelBorder;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.Graphics;
-import java.text.DecimalFormat;
 
 public class ActivityHistoryLabel extends JComponent {
     private final int id;

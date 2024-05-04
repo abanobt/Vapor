@@ -1,7 +1,7 @@
 package ui;
 
-import gameLabel.GameLabelSearchField;
-import gameLabel.LibraryGameLabel;
+import label.GameLabelSearchField;
+import label.LibraryGameLabel;
 import main.GameInstance;
 import main.PercentConstraints;
 import main.PercentLayout;

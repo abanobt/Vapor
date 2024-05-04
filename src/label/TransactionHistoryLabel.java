@@ -1,4 +1,4 @@
-package gameLabel;
+package label;
 
 import javax.swing.BorderFactory;
 import javax.swing.JComponent;

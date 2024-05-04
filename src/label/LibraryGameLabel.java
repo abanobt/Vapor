@@ -1,10 +1,9 @@
-package gameLabel;
+package label;
 
 import main.VaporApp;
 
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
-import javax.swing.JComponent;
 import javax.swing.border.BevelBorder;
 import java.awt.Color;
 import java.awt.Dimension;

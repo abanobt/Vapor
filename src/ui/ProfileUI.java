@@ -1,9 +1,7 @@
 package ui;
 
-import gameLabel.ActivityHistoryLabel;
-import gameLabel.GameLabelSearchField;
-import gameLabel.LibraryGameLabel;
-import gameLabel.TransactionHistoryLabel;
+import label.ActivityHistoryLabel;
+import label.TransactionHistoryLabel;
 import main.IconLabel;
 import main.PercentConstraints;
 import main.PercentLayout;
@@ -18,8 +16,6 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.SwingConstants;
-import java.awt.Color;
-import java.awt.image.BufferedImage;
 import java.net.URL;
 
 // Settings

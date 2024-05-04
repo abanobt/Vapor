@@ -1,27 +1,18 @@
 package ui;
 
-import gameLabel.ActivityHistoryLabel;
-import gameLabel.FriendLabel;
-import gameLabel.MessageLabel;
-import gameLabel.TransactionHistoryLabel;
-import main.IconLabel;
+import label.FriendLabel;
+import label.MessageLabel;
 import main.PercentConstraints;
 import main.PercentLayout;
 
-import javax.imageio.ImageIO;
 import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
-import javax.swing.JCheckBox;
-import javax.swing.JComboBox;
-import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollBar;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
-import javax.swing.SwingConstants;
-import java.net.URL;
 
 // Settings
 // Transaction history

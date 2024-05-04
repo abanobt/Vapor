@@ -1,20 +1,11 @@
-package gameLabel;
-
-import main.VaporApp;
+package label;
 
 import javax.swing.BorderFactory;
-import javax.swing.JButton;
-import javax.swing.JComponent;
 import javax.swing.JTextArea;
-import javax.swing.JTextPane;
-import javax.swing.SwingConstants;
 import javax.swing.border.BevelBorder;
-import javax.swing.border.Border;
 import javax.swing.border.TitledBorder;
 import java.awt.Color;
 import java.awt.Dimension;
-import java.awt.Font;
-import java.awt.Graphics;
 
 public class MessageLabel extends JTextArea {
     private static final Color USER_MESSAGE_COLOR = Color.BLUE;
