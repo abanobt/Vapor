@@ -2,6 +2,8 @@ package label;
 
 import javax.swing.JButton;
 import java.awt.Color;
+import java.awt.Graphics;
+
 import main.VaporApp;
 import com.loginapp.database.UserShoppingCartDAO;
 
@@ -34,12 +36,12 @@ public class WishlistGameLabel extends BaseGameLabel {
     @Override
     protected void updateButtons(Graphics g) {
         int userId = VaporApp.APP_SINGLETON.getUserId();
-        boolean isOwned = UserShoppingCartDAO.isGameInLibrary(userId, getId()); // Need to implement this method in DAO
-        boolean isInCart = UserShoppingCartDAO.isItemInCart(getId());
+        boolean isOwned = UserShoppingCartDAO.isGameInWishlist(getGameId()); // Need to implement this method in DAO
+        boolean isInCart = UserShoppingCartDAO.isItemInCart(getGameId());
 
         if (isOwned) {
             setVisible(false);
-            UserShoppingCartDAO.deleteItemFromWishlist(getId()); // If owned, remove from wishlist
+            UserShoppingCartDAO.deleteItemFromWishlist(getGameId()); // If owned, remove from wishlist
             VaporApp.APP_SINGLETON.refreshWishlist();
             return;
         }

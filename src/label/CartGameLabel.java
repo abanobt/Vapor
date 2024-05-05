@@ -2,6 +2,8 @@ package label;
 
 import javax.swing.JButton;
 import java.awt.Color;
+import java.awt.Graphics;
+
 import main.VaporApp;
 import com.loginapp.database.UserShoppingCartDAO;
 
@@ -25,7 +27,7 @@ public class CartGameLabel extends BaseGameLabel {
     @Override
     protected void updateButtons(Graphics g) {
         int userId = VaporApp.APP_SINGLETON.getUserId();
-        boolean isInCart = UserShoppingCartDAO.isItemInCart(id);
+        boolean isInCart = UserShoppingCartDAO.isItemInCart(getGameId());
 
         if (!isInCart) {
             setVisible(false);  // Hide the label if not in cart anymore

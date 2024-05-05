@@ -67,33 +67,45 @@ public class UserShoppingCartDAO {
         return false;  // Return false if there's an error or no entry found
     }
 
-    public static void checkoutCart(int userId, int gameId) {
-        // Add game to the library
+    public static void checkoutCart() {
+        String sql = "SELECT GameID FROM UserShoppingCart WHERE UserID = ?";
         try (Connection conn = DatabaseConnection.getConnection();
-             PreparedStatement addGameStmt = conn.prepareStatement("INSERT INTO UserLibrary (UserID, GameID, PurchaseDate) VALUES (?, ?, NOW())")) {
-            addGameStmt.setInt(1, userId);
-            addGameStmt.setInt(2, gameId);
-            addGameStmt.executeUpdate();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
+            stmt.setInt(1, VaporApp.APP_SINGLETON.getUserId());
+            try (ResultSet rs = stmt.executeQuery()) {
+                while (rs.next()) {
+                    int gameId = rs.getInt(1);
+                    // Add game to the library
+                    try (Connection conn1 = DatabaseConnection.getConnection();
+                         PreparedStatement addGameStmt = conn1.prepareStatement("INSERT INTO UserLibrary (UserID, GameID, PurchaseDate) VALUES (?, ?, NOW())")) {
+                        addGameStmt.setInt(1, VaporApp.APP_SINGLETON.getUserId());
+                        addGameStmt.setInt(2, gameId);
+                        addGameStmt.executeUpdate();
+                    } catch (SQLException e) {
+                        e.printStackTrace();
+                    }
 
-        // Remove game from the cart
-        try (Connection conn = DatabaseConnection.getConnection();
-             PreparedStatement removeCartStmt = conn.prepareStatement("DELETE FROM UserShoppingCart WHERE UserID = ? AND GameID = ?")) {
-            removeCartStmt.setInt(1, userId);
-            removeCartStmt.setInt(2, gameId);
-            removeCartStmt.executeUpdate();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
+                    // Remove game from the cart
+                    try (Connection conn1 = DatabaseConnection.getConnection();
+                         PreparedStatement removeCartStmt = conn1.prepareStatement("DELETE FROM UserShoppingCart WHERE UserID = ? AND GameID = ?")) {
+                        removeCartStmt.setInt(1, VaporApp.APP_SINGLETON.getUserId());
+                        removeCartStmt.setInt(2, gameId);
+                        removeCartStmt.executeUpdate();
+                    } catch (SQLException e) {
+                        e.printStackTrace();
+                    }
 
-        // Remove game from wishlist if it's there
-        try (Connection conn = DatabaseConnection.getConnection();
-             PreparedStatement removeWishlistStmt = conn.prepareStatement("DELETE FROM UserWishlist WHERE UserID = ? AND GameID = ?")) {
-            removeWishlistStmt.setInt(1, userId);
-            removeWishlistStmt.setInt(2, gameId);
-            removeWishlistStmt.executeUpdate();
+                    // Remove game from wishlist if it's there
+                    try (Connection conn1 = DatabaseConnection.getConnection();
+                         PreparedStatement removeWishlistStmt = conn1.prepareStatement("DELETE FROM UserWishlist WHERE UserID = ? AND GameID = ?")) {
+                        removeWishlistStmt.setInt(1, VaporApp.APP_SINGLETON.getUserId());
+                        removeWishlistStmt.setInt(2, gameId);
+                        removeWishlistStmt.executeUpdate();
+                    } catch (SQLException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
         } catch (SQLException e) {
             e.printStackTrace();
         }
