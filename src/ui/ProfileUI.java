@@ -1,16 +1,12 @@
 package ui;
 
-import com.loginapp.database.DatabaseConnection;
 import com.loginapp.database.UserSettingsDAO;
 import com.loginapp.util.Pair;
-import label.AchievementLabel;
 import label.ActivityHistoryLabel;
-import label.CartGameLabel;
 import label.TransactionHistoryLabel;
 import main.IconLabel;
 import main.PercentConstraints;
 import main.PercentLayout;
-import main.VaporApp;
 
 import javax.imageio.ImageIO;
 import javax.swing.BorderFactory;
@@ -24,12 +20,6 @@ import javax.swing.JScrollPane;
 import javax.swing.SwingConstants;
 import java.io.IOException;
 import java.net.URL;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.List;
 
 // Settings
 // Transaction history
@@ -59,7 +49,7 @@ public class ProfileUI extends JPanel {
         add(languagePreference = new JComboBox<String>(supportedLanguages) {{
             setBorder(BorderFactory.createTitledBorder("Language Preference"));
             addActionListener(e -> {
-                // SQL: update language preference
+                updatePreferences();
             });
         }}, new PercentConstraints(0.05f, 0.7f, .2f, 0.07f));
 
@@ -67,7 +57,7 @@ public class ProfileUI extends JPanel {
         add(displayPreference = new JComboBox<String>(displayOptions) {{
             setBorder(BorderFactory.createTitledBorder("Display Preference"));
             addActionListener(e -> {
-                // SQL: update display preference
+                updatePreferences();
             });
         }}, new PercentConstraints(0.05f, 0.8f, .2f, 0.07f));
 
@@ -75,7 +65,7 @@ public class ProfileUI extends JPanel {
             boolean allowNotifications = true; // SQL: get notification preference
             setSelected(allowNotifications);
             addActionListener(e -> {
-                // SQL: update notification preference
+                updatePreferences();
             });
         }}, new PercentConstraints(0.05f, 0.87f, .2f, 0.07f));
 
@@ -98,6 +88,11 @@ public class ProfileUI extends JPanel {
         }}, new PercentConstraints(.3f, .525f, .65f, .425f));
 
         refresh();
+    }
+
+    private void updatePreferences() {
+        UserSettingsDAO.updateUserSettings((String)languagePreference.getSelectedItem(),
+                notificationPreference.isSelected() ? "true" : "false", (String)displayPreference.getSelectedItem());
     }
 
     public void refresh() {

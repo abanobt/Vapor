@@ -15,7 +15,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class UserSettingsDAO {
-    public void addUserSettings(String languagePreference, String notificationSettings, String displayPreference) throws SQLException {
+    public static void addUserSettings(String languagePreference, String notificationSettings, String displayPreference) throws SQLException {
         String sql = "INSERT INTO UserSettings (UserID, LanguagePreference, NotificationSettings, DisplayPreference) VALUES (?, ?, ?, ?)";
         try (Connection conn = DatabaseConnection.getConnection();
              PreparedStatement stmt = conn.prepareStatement(sql)) {
@@ -27,7 +27,7 @@ public class UserSettingsDAO {
         }
     }
 
-    public void updateUserSettings(String languagePreference, String notificationSettings, String displayPreference) throws SQLException {
+    public static void updateUserSettings(String languagePreference, String notificationSettings, String displayPreference) {
         String sql = "UPDATE UserSettings SET LanguagePreference = ?, NotificationSettings = ?, DisplayPreference = ? WHERE UserID = ?";
         try (Connection conn = DatabaseConnection.getConnection();
              PreparedStatement stmt = conn.prepareStatement(sql)) {
@@ -36,10 +36,12 @@ public class UserSettingsDAO {
             stmt.setString(3, displayPreference);
             stmt.setInt(4, VaporApp.APP_SINGLETON.getUserId());
             stmt.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
         }
     }
 
-    public void deleteUserSettings() throws SQLException {
+    public static void deleteUserSettings() throws SQLException {
         String sql = "DELETE FROM UserSettings WHERE UserID = ?";
         try (Connection conn = DatabaseConnection.getConnection();
              PreparedStatement stmt = conn.prepareStatement(sql)) {
