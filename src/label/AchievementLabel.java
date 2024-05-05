@@ -7,7 +7,6 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.Graphics;
-import java.text.DecimalFormat;
 
 public class AchievementLabel extends JComponent {
     private final int id;

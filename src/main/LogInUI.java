@@ -1,7 +1,5 @@
 package main;
 
-import org.mindrot.jbcrypt.BCrypt;
-
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;

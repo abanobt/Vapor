@@ -5,7 +5,6 @@ import ui.MainUI;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import java.awt.Dimension;
-import java.util.Random;
 
 public class VaporApp extends JFrame {
     public static VaporApp APP_SINGLETON;

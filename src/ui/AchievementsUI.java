@@ -1,18 +1,14 @@
 package ui;
 
 import label.AchievementLabel;
-import label.ActivityHistoryLabel;
-import label.TransactionHistoryLabel;
 import main.PercentConstraints;
 import main.PercentLayout;
 
-import javax.imageio.ImageIO;
 import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
 import javax.swing.ImageIcon;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
-import java.net.URL;
 
 // Settings
 // Transaction history
