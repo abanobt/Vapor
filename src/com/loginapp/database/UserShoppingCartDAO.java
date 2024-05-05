@@ -44,11 +44,56 @@ public class UserShoppingCartDAO {
         }
     }
 
-    public boolean isItemInCart(int gameId) {
-        String sql = "DELETE FROM UserShoppingCart WHERE CartID = ?";
+    public boolean isItemInCart(int userId, int gameId) {
+        String sql = "SELECT COUNT(*) FROM UserShoppingCart WHERE UserID = ? AND GameID = ?";
         try (Connection conn = DatabaseConnection.getConnection();
              PreparedStatement stmt = conn.prepareStatement(sql)) {
-            stmt.setInt(1, cartId);
+            stmt.setInt(1, userId);
+            stmt.setInt(2, gameId);
+            try (ResultSet rs = stmt.executeQuery()) {
+                if (rs.next()) {
+                    return rs.getInt(1) > 0;  // If count is more than 0, item is in the cart
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return false;  // Return false if there's an error or no entry found
+    }
+    
+    public boolean isGameInWishlist(int userId, int gameId) {
+        String sql = "SELECT COUNT(*) FROM UserWishlist WHERE UserID = ? AND GameID = ?";
+        try (Connection conn = DatabaseConnection.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
+            stmt.setInt(1, userId);
+            stmt.setInt(2, gameId);
+            try (ResultSet rs = stmt.executeQuery()) {
+                if (rs.next()) {
+                    return rs.getInt(1) > 0;
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
+    
+    public void addItemToWishlist(int userId, int gameId) throws SQLException {
+        String sql = "INSERT INTO UserWishlist (UserID, GameID) VALUES (?, ?)";
+        try (Connection conn = DatabaseConnection.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
+            stmt.setInt(1, userId);
+            stmt.setInt(2, gameId);
+            stmt.executeUpdate();
+        }
+    }
+    
+    public void deleteItemFromWishlist(int userId, int gameId) throws SQLException {
+        String sql = "DELETE FROM UserWishlist WHERE UserID = ? AND GameID = ?";
+        try (Connection conn = DatabaseConnection.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
+            stmt.setInt(1, userId);
+            stmt.setInt(2, gameId);
             stmt.executeUpdate();
         }
     }
