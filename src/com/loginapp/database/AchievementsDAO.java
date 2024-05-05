@@ -16,7 +16,7 @@ public class AchievementsDAO {
         }
     }
     
-    public class AchievementsDao {
+    public class AchievementsDAO {
         // Method to select achievements and their associated game titles
         public List<Achievement> getAchievementsWithGameTitles() throws SQLException {
             List<Achievement> achievements = new ArrayList<>();

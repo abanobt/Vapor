@@ -13,6 +13,10 @@ import javax.swing.JPanel;
 import javax.swing.JScrollBar;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 
 // Settings
 // Transaction history
@@ -57,6 +61,7 @@ public class FriendsUI extends JPanel {
                 String message = messageArea.getText();
                 messageArea.setText("");
                 // SQL: send message
+                sendMessage(openMessagesFriendshipId, message); // Assuming you have the friend's ID
                 refresh();
             });
         }}, new PercentConstraints(0.87f, .8f, 0.08f, 0.15f));
@@ -66,25 +71,66 @@ public class FriendsUI extends JPanel {
         openMessagesFriendshipId = -1;
     }
 
-    public void refresh() {
-        friendsPanel.removeAll();
-        for (int i = 0; i < 4; i ++) {
-            // SQL: retrieve friends
-            friendsPanel.add(new FriendLabel(i, "Friend Username",
-                    "Friend Status", "1/1/1111"));
-        }
-
-        messagesPanel.removeAll();
-        if (openMessagesFriendshipId < 0) { return; }
-        for (int i = 0; i < 4; i ++) {
-            // SQL: retrieve messages
-            messagesPanel.add(new MessageLabel(i, "Friend Name",
-                    i % 2 == 0, "This is a message.", "1/1/1111"));
+    private void sendMessage(int friendshipId, String message) {
+        String sql = "INSERT INTO Messages (friendshipId, messageDetails, messageDate) VALUES (?, ?, NOW())";
+        try (Connection conn = DatabaseConnection.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
+            stmt.setInt(1, friendshipId);
+            stmt.setString(2, message);
+            stmt.executeUpdate();
+        } catch (SQLException ex) {
+            ex.printStackTrace();
         }
     }
+
+    public void refresh() {
+        friendsPanel.removeAll();
+        fetchFriends();
+
+        messagesPanel.removeAll();
+        if (openMessagesFriendshipId >= 0) {
+            fetchMessages(openMessagesFriendshipId);
+        }
+    }
+
+    private void fetchFriends() {
+        String sql = "SELECT friendshipId, username, status, lastUpdated FROM Friends WHERE userId = ?"; // Adjust based on your schema
+        try (Connection conn = DatabaseConnection.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
+            stmt.setInt(1, currentUserId); // Assuming you have a way to get the current user's ID
+            ResultSet rs = stmt.executeQuery();
+            while (rs.next()) {
+                int friendshipId = rs.getInt("friendshipId");
+                String username = rs.getString("username");
+                String status = rs.getString("status");
+                String lastUpdated = rs.getString("lastUpdated");
+                friendsPanel.add(new FriendLabel(friendshipId, username, status, lastUpdated));
+            }
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+    }
+
+    private void fetchMessages(int friendshipId) {
+        String sql = "SELECT messageId, senderId, messageDetails, messageDate FROM Messages WHERE friendshipId = ?";
+        try (Connection conn = DatabaseConnection.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
+            stmt.setInt(1, friendshipId);
+            ResultSet rs = stmt.executeQuery();
+            while (rs.next()) {
+                int messageId = rs.getInt("messageId");
+                boolean isSender = rs.getInt("senderId") == currentUserId; // Adjust depending on how you store sender
+                String message = rs.getString("messageDetails");
+                String date = rs.getString("messageDate");
+                messagesPanel.add(new MessageLabel(messageId, "Friend Name", isSender, message, date));
+            }
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
 
     public void openMessages(int friendshipId) {
         openMessagesFriendshipId = friendshipId;
         refresh();
+        }
     }
 }
