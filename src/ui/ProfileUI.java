@@ -1,10 +1,16 @@
 package ui;
 
+import com.loginapp.database.DatabaseConnection;
+import com.loginapp.database.UserSettingsDAO;
+import com.loginapp.util.Pair;
+import label.AchievementLabel;
 import label.ActivityHistoryLabel;
+import label.CartGameLabel;
 import label.TransactionHistoryLabel;
 import main.IconLabel;
 import main.PercentConstraints;
 import main.PercentLayout;
+import main.VaporApp;
 
 import javax.imageio.ImageIO;
 import javax.swing.BorderFactory;
@@ -16,7 +22,14 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.SwingConstants;
+import java.io.IOException;
 import java.net.URL;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 // Settings
 // Transaction history
@@ -88,36 +101,30 @@ public class ProfileUI extends JPanel {
     }
 
     public void refresh() {
-        // SQL: get user profile pic url
-        String profilePicUrl = "https://einercial.com/wp-content/uploads/2018/04/Facebook-no-profile-picture-icon-620x389.jpg";
+        Pair<String, String> userInfo = UserSettingsDAO.getUserInfo();
         try {
-            profilePic.setIcon(ImageIO.read(new URL(profilePicUrl).openStream()));
+            profilePic.setIcon(ImageIO.read(new URL(userInfo.secondItem).openStream()));
         } catch (Exception e) {
-            System.out.println(e);
+            try {
+                profilePic.setIcon(ImageIO.read(new URL("https://einercial.com/wp-content/uploads/2018/04/Facebook-no-profile-picture-icon-620x389.jpg").openStream()));
+            } catch (IOException ex) {
+                ex.printStackTrace();
+            }
+            e.printStackTrace();
         }
 
-        // SQL: get username, email, registrationDate, and role
-        String info =
-                "<html>"
-                + "Username: " + "USERNAME" + "<br>"
-                + "Email: " + "EMAIL" + "<br>"
-                + "RegistrationDate: " + "1/1/1111" + "<br>"
-                + "Role: " + "User" + "<br>"
-                +"</html>";
-        infoLabel.setText(info);
+        infoLabel.setText(userInfo.firstItem);
 
         transactionPanel.removeAll();
-        for (int i = 0; i < 4; i ++) {
-            // SQL: retrieve transaction history
-            transactionPanel.add(new TransactionHistoryLabel(i, SampleData.TITLES[i],
-                    SampleData.RELEASE_DATE[i], SampleData.PRICE[i], "Credit Card"));
+        for (TransactionHistoryLabel transaction : UserSettingsDAO.getTransactionHistory()) {
+            transactionPanel.add(transaction);
         }
 
         activityPanel.removeAll();
-        for (int i = 0; i < 4; i ++) {
-            // SQL: retrieve activity history
-            activityPanel.add(new ActivityHistoryLabel(i, "Purchase",
-                    SampleData.RELEASE_DATE[i], "Minecraft"));
+        for (ActivityHistoryLabel activity : UserSettingsDAO.getActivityHistory()) {
+            activityPanel.add(activity);
         }
     }
+
+
 }
