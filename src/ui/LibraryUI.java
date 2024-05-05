@@ -64,7 +64,7 @@ public class LibraryUI extends JPanel {
         UserLibraryDAO.closeGame(gameId);
 
         activeGameInstances.remove(gameId);
-    }x
+    }
     
     public void refresh() {
         gamesPanel.removeAll();
