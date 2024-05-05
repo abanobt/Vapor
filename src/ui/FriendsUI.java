@@ -65,7 +65,6 @@ public class FriendsUI extends JPanel {
             addActionListener(e -> {
                 String message = messageArea.getText();
                 messageArea.setText("");
-                // SQL: send message
                 FriendsDAO.sendMessage(openMessagesFriendshipId, message); // Assuming you have the friend's ID
                 refresh();
             });
