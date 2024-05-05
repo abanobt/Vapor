@@ -3,7 +3,7 @@ import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
 public class AchievementsDAO {
-    public void addAchievement(int gameId, String name, String description, int points, String condition) throws SQLException {
+    public static void addAchievement(int gameId, String name, String description, int points, String condition) throws SQLException {
         String sql = "INSERT INTO Achievements (GameID, AchievementName, AchievementDescription, AchievementPoints, UnlockCondition) VALUES (?, ?, ?, ?, ?)";
         try (Connection conn = DatabaseConnection.getConnection();
              PreparedStatement stmt = conn.prepareStatement(sql)) {
@@ -16,14 +16,16 @@ public class AchievementsDAO {
         }
     }
     
-    public class AchievementsDAO {
-        // Method to select achievements and their associated game titles
-        public List<Achievement> getAchievementsWithGameTitles() throws SQLException {
+        // Method to select all achievements with game titles and a boolean unlocked status
+        public staic void List<Achievement> getAchievementsWithGameTitlesAndUnlockStatus() throws SQLException {
             List<Achievement> achievements = new ArrayList<>();
-            String sql = "SELECT g.Title AS GameTitle, a.AchievementName, a.AchievementDescription, a.AchievementPoints, a.UnlockCondition " +
-                        "FROM Achievements a JOIN Games g ON a.GameID = g.GameID";
+            String sql = "SELECT g.Title AS GameTitle, a.AchievementName, a.AchievementDescription, a.AchievementPoints, a.UnlockCondition, " +
+                         "au.AchievementID IS NOT NULL AS IsUnlocked " + // True if unlocked, false if not
+                         "FROM Achievements a " +
+                         "JOIN Games g ON a.GameID = g.GameID " +
+                         "LEFT JOIN AchievementsUnlocked au ON a.AchievementID = au.AchievementID";
             try (Connection conn = DatabaseConnection.getConnection();
-                PreparedStatement stmt = conn.prepareStatement(sql)) {
+                 PreparedStatement stmt = conn.prepareStatement(sql)) {
                 try (ResultSet rs = stmt.executeQuery()) {
                     while (rs.next()) {
                         String gameTitle = rs.getString("GameTitle");
@@ -31,13 +33,14 @@ public class AchievementsDAO {
                         String description = rs.getString("AchievementDescription");
                         int points = rs.getInt("AchievementPoints");
                         String condition = rs.getString("UnlockCondition");
-
+                        boolean isUnlocked = rs.getBoolean("IsUnlocked");
+    
                         // Assuming Achievement class constructor takes these parameters:
-                        Achievement achievement = new Achievement(gameTitle, name, description, points, condition);
+                        Achievement achievement = new Achievement(gameTitle, name, description, points, condition, isUnlocked);
                         achievements.add(achievement);
                     }
                 }
             }
-        }
+        return achievements;
     }
-}
+}    
