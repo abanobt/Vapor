@@ -15,6 +15,7 @@ public class VaporApp extends JFrame {
     private static final int INIT_HEIGHT = 720;
 
     private MainUI mainUI;
+    private int userId;
 
     public static void main(String[] args) {
         APP_SINGLETON = new VaporApp();
@@ -37,7 +38,12 @@ public class VaporApp extends JFrame {
         getContentPane().add(new LogInUI(), PercentConstraints.FULL);
     }
 
-    public void loggedIn() {
+    public int getUserId() {
+        return userId;
+    }
+
+    public void loggedIn(int userId) {
+        this.userId = userId;
         getContentPane().removeAll();
         mainUI = new MainUI();
         getContentPane().add(mainUI,PercentConstraints.FULL);
