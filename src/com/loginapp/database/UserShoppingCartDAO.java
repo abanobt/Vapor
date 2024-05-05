@@ -67,22 +67,36 @@ public class UserShoppingCartDAO {
         return false;  // Return false if there's an error or no entry found
     }
 
-    public static void checkoutCart() {
-        // SQL : add game to library, remove it from it cart, and remove it from wishlist if it's there
-        String sql = "SELECT COUNT(*) FROM UserWishlist WHERE UserID = ? AND GameID = ?";
+    public static void checkoutCart(int userId, int gameId) {
+        // Add game to the library
         try (Connection conn = DatabaseConnection.getConnection();
-             PreparedStatement stmt = conn.prepareStatement(sql)) {
-            stmt.setInt(1, VaporApp.APP_SINGLETON.getUserId());
-            stmt.setInt(2, gameId);
-            try (ResultSet rs = stmt.executeQuery()) {
-                if (rs.next()) {
-                    return rs.getInt(1) > 0;
-                }
-            }
+             PreparedStatement addGameStmt = conn.prepareStatement("INSERT INTO UserLibrary (UserID, GameID, PurchaseDate) VALUES (?, ?, NOW())")) {
+            addGameStmt.setInt(1, userId);
+            addGameStmt.setInt(2, gameId);
+            addGameStmt.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        return false;
+
+        // Remove game from the cart
+        try (Connection conn = DatabaseConnection.getConnection();
+             PreparedStatement removeCartStmt = conn.prepareStatement("DELETE FROM UserShoppingCart WHERE UserID = ? AND GameID = ?")) {
+            removeCartStmt.setInt(1, userId);
+            removeCartStmt.setInt(2, gameId);
+            removeCartStmt.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        // Remove game from wishlist if it's there
+        try (Connection conn = DatabaseConnection.getConnection();
+             PreparedStatement removeWishlistStmt = conn.prepareStatement("DELETE FROM UserWishlist WHERE UserID = ? AND GameID = ?")) {
+            removeWishlistStmt.setInt(1, userId);
+            removeWishlistStmt.setInt(2, gameId);
+            removeWishlistStmt.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
     
     public static boolean isGameInWishlist(int gameId) {
