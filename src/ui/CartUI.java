@@ -1,5 +1,6 @@
 package ui;
 
+import com.loginapp.database.UserSettingsDAO;
 import com.loginapp.database.UserShoppingCartDAO;
 import label.CartGameLabel;
 import label.GameLabelSearchField;
@@ -34,7 +35,7 @@ public class CartUI extends JPanel {
         add(new JButton("Checkout") {{
             setBackground(Color.GREEN);
             addActionListener(e -> {
-                // SQL : add game to library, remove it from it cart, and remove it from wishlist if it's there
+                UserShoppingCartDAO.checkoutCart();
                 refresh();
                 VaporApp.APP_SINGLETON.refreshLibrary();
             });

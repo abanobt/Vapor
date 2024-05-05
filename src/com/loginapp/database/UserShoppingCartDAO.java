@@ -66,6 +66,24 @@ public class UserShoppingCartDAO {
         }
         return false;  // Return false if there's an error or no entry found
     }
+
+    public static void checkoutCart() {
+        // SQL : add game to library, remove it from it cart, and remove it from wishlist if it's there
+        String sql = "SELECT COUNT(*) FROM UserWishlist WHERE UserID = ? AND GameID = ?";
+        try (Connection conn = DatabaseConnection.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
+            stmt.setInt(1, VaporApp.APP_SINGLETON.getUserId());
+            stmt.setInt(2, gameId);
+            try (ResultSet rs = stmt.executeQuery()) {
+                if (rs.next()) {
+                    return rs.getInt(1) > 0;
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
     
     public static boolean isGameInWishlist(int gameId) {
         String sql = "SELECT COUNT(*) FROM UserWishlist WHERE UserID = ? AND GameID = ?";
