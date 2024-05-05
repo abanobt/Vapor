@@ -8,6 +8,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Arrays;
+
+import com.loginapp.database.DatabaseConnection;
 import org.mindrot.jbcrypt.BCrypt;
 
 public class LogInUI extends JPanel {
@@ -57,13 +59,14 @@ public class LogInUI extends JPanel {
     private void onLogIn(ActionEvent e) {
         String username = usernameField.getText();
         char[] password = passwordField.getPassword();
+        LoginResult result;
         if (username.length() < 1) {
             JOptionPane.showMessageDialog(VaporApp.APP_SINGLETON, "Username required", "Log In Failed", JOptionPane.ERROR_MESSAGE);
             passwordField.setText("");
         } else if (password.length < 1) {
             JOptionPane.showMessageDialog(VaporApp.APP_SINGLETON, "Password required", "Log In Failed", JOptionPane.ERROR_MESSAGE);
-        } else if (validateLogIn(username, password)) {
-            VaporApp.APP_SINGLETON.loggedIn();
+        } else if ((result = validateLogIn(username, password)).isValid) {
+            VaporApp.APP_SINGLETON.loggedIn(result.userId);
         } else {
             JOptionPane.showMessageDialog(VaporApp.APP_SINGLETON,"Invalid username and/or password", "Log In Failed", JOptionPane.ERROR_MESSAGE);
             passwordField.setText("");
@@ -83,12 +86,13 @@ public class LogInUI extends JPanel {
         return new LoginResult(valid, userId);
     }  
 
+
         // Gets the hashed password for this username
     // returns null if the username is invalid
     private String getHashedPassword(String username) {
         String hashedPassword = null;
         String sql = "SELECT PasswordHash FROM Users WHERE Username = ?";
-        try (Connection conn = getConnection();
+        try (Connection conn = DatabaseConnection.getConnection();
              PreparedStatement stmt = conn.prepareStatement(sql)) {
             stmt.setString(1, username);
             try (ResultSet rs = stmt.executeQuery()) {
@@ -104,7 +108,7 @@ public class LogInUI extends JPanel {
 
     private int getUserId(String username) {
         String sql = "SELECT UserID FROM Users WHERE Username = ?";
-        try (Connection conn = getConnection();
+        try (Connection conn = DatabaseConnection.getConnection();
              PreparedStatement stmt = conn.prepareStatement(sql)) {
             stmt.setString(1, username);
             try (ResultSet rs = stmt.executeQuery()) {
