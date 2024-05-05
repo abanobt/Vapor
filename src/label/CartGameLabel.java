@@ -1,32 +1,34 @@
 package label;
 
-import main.VaporApp;
-
 import javax.swing.JButton;
 import java.awt.Color;
-import java.awt.Graphics;
+import main.VaporApp;
+import com.loginapp.database.UserShoppingCartDAO;
 
 public class CartGameLabel extends BaseGameLabel {
     private final JButton purchaseButton;
+
     public CartGameLabel(int id, String title, String developer, String publisher,
                          String genre, String tags, String releaseDate, String description,
                          float price, String platforms, float avgRating) {
         super(id, title, developer, publisher, genre, tags, releaseDate, description, price, platforms, avgRating);
-        add(purchaseButton = new JButton() {{
-            setText("Remove from cart");
+
+        add(purchaseButton = new JButton("Remove from cart") {{
             setBackground(Color.RED);
             addActionListener(e -> {
-                // SQL: remove item from cart
+                UserShoppingCartDAO.deleteCartItem(id);  // Adjusted to use static method correctly
+                VaporApp.APP_SINGLETON.refreshCart(); // Refresh cart
             });
         }});
     }
 
+    @Override
     protected void updateButtons(Graphics g) {
-        if (false) { // SQL: check if game is owned or game is not in cart
-            setVisible(false);
-            // SQL: remove game from cart if it is owned
-            VaporApp.APP_SINGLETON.refreshCart(); // Refresh cart
-            return;
+        int userId = VaporApp.APP_SINGLETON.getUserId();
+        boolean isInCart = UserShoppingCartDAO.isItemInCart(id);
+
+        if (!isInCart) {
+            setVisible(false);  // Hide the label if not in cart anymore
         }
 
         int height = (getHeight() - 40);
