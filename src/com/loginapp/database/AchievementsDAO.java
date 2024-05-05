@@ -1,6 +1,14 @@
+package com.loginapp.database;
+
+import label.AchievementLabel;
+
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 public class AchievementsDAO {
     public static void addAchievement(int gameId, String name, String description, int points, String condition) throws SQLException {
@@ -15,32 +23,37 @@ public class AchievementsDAO {
             stmt.executeUpdate();
         }
     }
-    
-        // Method to select all achievements with game titles and a boolean unlocked status
-        public staic void List<Achievement> getAchievementsWithGameTitlesAndUnlockStatus() throws SQLException {
-            List<Achievement> achievements = new ArrayList<>();
-            String sql = "SELECT g.Title AS GameTitle, a.AchievementName, a.AchievementDescription, a.AchievementPoints, a.UnlockCondition, " +
-                         "au.AchievementID IS NOT NULL AS IsUnlocked " + // True if unlocked, false if not
-                         "FROM Achievements a " +
-                         "JOIN Games g ON a.GameID = g.GameID " +
-                         "LEFT JOIN AchievementsUnlocked au ON a.AchievementID = au.AchievementID";
-            try (Connection conn = DatabaseConnection.getConnection();
-                 PreparedStatement stmt = conn.prepareStatement(sql)) {
-                try (ResultSet rs = stmt.executeQuery()) {
-                    while (rs.next()) {
-                        String gameTitle = rs.getString("GameTitle");
-                        String name = rs.getString("AchievementName");
-                        String description = rs.getString("AchievementDescription");
-                        int points = rs.getInt("AchievementPoints");
-                        String condition = rs.getString("UnlockCondition");
-                        boolean isUnlocked = rs.getBoolean("IsUnlocked");
-    
-                        // Assuming Achievement class constructor takes these parameters:
-                        Achievement achievement = new Achievement(gameTitle, name, description, points, condition, isUnlocked);
-                        achievements.add(achievement);
-                    }
+
+    // Method to select all achievements with game titles and a boolean unlocked status
+    public static List<AchievementLabel> getAchievementsWithGameTitlesAndUnlockStatus() {
+        List<AchievementLabel> achievements = new ArrayList<>();
+        String sql = "SELECT au.AchievementID, g.Title AS GameTitle, a.AchievementName, a.AchievementDescription, a.AchievementPoints, a.UnlockCondition, " +
+                     "au.AchievementID IS NOT NULL AS IsUnlocked, " + // True if unlocked, false if not
+                     "au.AchievementsUnlocked" +
+                     "FROM Achievements a " +
+                     "JOIN Games g ON a.GameID = g.GameID " +
+                     "LEFT JOIN AchievementsUnlocked au ON a.AchievementID = au.AchievementID";
+        try (Connection conn = DatabaseConnection.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
+            try (ResultSet rs = stmt.executeQuery()) {
+                while (rs.next()) {
+                    int id = rs.getInt("AchievementID");
+                    String gameTitle = rs.getString("GameTitle");
+                    String name = rs.getString("AchievementName");
+                    String description = rs.getString("AchievementDescription");
+                    int points = rs.getInt("AchievementPoints");
+                    String condition = rs.getString("UnlockCondition");
+                    boolean isUnlocked = rs.getBoolean("IsUnlocked");
+                    Date date = rs.getDate("AchievementUnlockDate");
+
+                    // Assuming Achievement class constructor takes these parameters:
+                    AchievementLabel achievement = new AchievementLabel(id, gameTitle, name, points, condition, description, isUnlocked, date.toString());
+                    achievements.add(achievement);
                 }
             }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
         return achievements;
     }
 }    
