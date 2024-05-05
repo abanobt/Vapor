@@ -54,7 +54,6 @@ public class LibraryGameLabel extends GameLabel {
      */
     @Override
     public boolean contains(String query) {
-        // TODO: maybe use sql to get these values instead of storing them locally
         return title.toLowerCase().contains(query);
     }
 

@@ -45,7 +45,7 @@ public class ProfileUI extends JPanel {
             setFont(getFont().deriveFont(20f));
         }}, new PercentConstraints(0.05f, 0.45f, .2f, 0.2f));
 
-        String[] supportedLanguages = { "English" }; // SQL: get supported languages
+        String[] supportedLanguages = { "English" };
         add(languagePreference = new JComboBox<String>(supportedLanguages) {{
             setBorder(BorderFactory.createTitledBorder("Language Preference"));
             addActionListener(e -> {
@@ -53,7 +53,7 @@ public class ProfileUI extends JPanel {
             });
         }}, new PercentConstraints(0.05f, 0.7f, .2f, 0.07f));
 
-        String[] displayOptions = { "1920x1080", "3840x2160" }; // SQL: get supported languages
+        String[] displayOptions = { "1920x1080", "3840x2160" };
         add(displayPreference = new JComboBox<String>(displayOptions) {{
             setBorder(BorderFactory.createTitledBorder("Display Preference"));
             addActionListener(e -> {
@@ -62,7 +62,7 @@ public class ProfileUI extends JPanel {
         }}, new PercentConstraints(0.05f, 0.8f, .2f, 0.07f));
 
         add(notificationPreference = new JCheckBox("Notifications") {{
-            boolean allowNotifications = true; // SQL: get notification preference
+            boolean allowNotifications = true;
             setSelected(allowNotifications);
             addActionListener(e -> {
                 updatePreferences();
