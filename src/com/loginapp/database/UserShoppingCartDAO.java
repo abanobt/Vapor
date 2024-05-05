@@ -42,9 +42,9 @@ public class UserShoppingCartDAO {
             stmt.executeUpdate();
         }
     }
-    // Method to select all achievements with game titles and a boolean unlocked status
+
     public static List<CartGameLabel> getCartItems() {
-        List<CartGameLabel> achievements = new ArrayList<>();
+        List<CartGameLabel> cartItems = new ArrayList<>();
         String sql = "SELECT usc.CartID, g.Title AS GameTitle, d.DeveloperName AS DevName, p.PublisherName AS PubName," +
                 "gen.GenreName, g.ReleaseDate AS Date, g.Description AS GameDescription, g.Price AS GamePrice," +
                 "g.Platform AS GamePlatforms" +
@@ -74,12 +74,12 @@ public class UserShoppingCartDAO {
                     // Assuming Achievement class constructor takes these parameters:
                     CartGameLabel achievement = new CartGameLabel(id, gameTitle, devName, pubName, genreName, "None", date,
                             description, price, platforms, avgRating);
-                    achievements.add(achievement);
+                    cartItems.add(achievement);
                 }
             }
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        return achievements;
+        return cartItems;
     }
 }
