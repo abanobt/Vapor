@@ -44,6 +44,15 @@ public class UserShoppingCartDAO {
         }
     }
 
+    public boolean isItemInCart(int gameId) {
+        String sql = "DELETE FROM UserShoppingCart WHERE CartID = ?";
+        try (Connection conn = DatabaseConnection.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
+            stmt.setInt(1, cartId);
+            stmt.executeUpdate();
+        }
+    }
+
     public static List<CartGameLabel> getCartItems() {
         List<CartGameLabel> cartItems = new ArrayList<>();
         String sql = "SELECT usc.CartID, g.Title AS GameTitle, d.DeveloperName AS DevName, p.PublisherName AS PubName," +
@@ -60,7 +69,7 @@ public class UserShoppingCartDAO {
                 "JOIN Genres gen ON gen.GenreID = gg.GenreID";
         try (Connection conn = DatabaseConnection.getConnection();
              PreparedStatement stmt = conn.prepareStatement(sql)) {
-            stmt.setInt(0, VaporApp.APP_SINGLETON.getUserId());
+            stmt.setInt(1, VaporApp.APP_SINGLETON.getUserId());
             stmt.executeUpdate();
             try (ResultSet rs = stmt.executeQuery()) {
                 while (rs.next()) {

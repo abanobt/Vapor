@@ -36,7 +36,6 @@ public class AchievementsUI extends JPanel {
     public void refresh() {
         achievementsPanel.removeAll();
         for (AchievementLabel label : AchievementsDAO.getAchievementsWithGameTitlesAndUnlockStatus()) {
-            // SQL: retrieve achievements
             achievementsPanel.add(label);
         }
     }
