@@ -72,9 +72,9 @@ public class UserShoppingCartDAO {
                     float avgRating = rs.getFloat("AvgRating");
 
                     // Assuming Achievement class constructor takes these parameters:
-                    CartGameLabel achievement = new CartGameLabel(id, gameTitle, devName, pubName, genreName, "None", date,
+                    CartGameLabel cartItem = new CartGameLabel(id, gameTitle, devName, pubName, genreName, "None", date,
                             description, price, platforms, avgRating);
-                    cartItems.add(achievement);
+                    cartItems.add(cartItem);
                 }
             }
         } catch (SQLException e) {
