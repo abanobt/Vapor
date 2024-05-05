@@ -61,6 +61,7 @@ public class UserShoppingCartDAO {
         try (Connection conn = DatabaseConnection.getConnection();
              PreparedStatement stmt = conn.prepareStatement(sql)) {
             stmt.setInt(0, VaporApp.APP_SINGLETON.getUserId());
+            stmt.executeUpdate();
             try (ResultSet rs = stmt.executeQuery()) {
                 while (rs.next()) {
                     int id = rs.getInt("AchievementID");
