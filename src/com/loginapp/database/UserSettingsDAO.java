@@ -2,7 +2,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
-public class UserSettingsDao {
+public class UserSettingsDAO {
     public void addUserSettings(int userId, String languagePreference, String notificationSettings, String displayPreference) throws SQLException {
         String sql = "INSERT INTO UserSettings (UserID, LanguagePreference, NotificationSettings, DisplayPreference) VALUES (?, ?, ?, ?)";
         try (Connection conn = DatabaseConnection.getConnection();

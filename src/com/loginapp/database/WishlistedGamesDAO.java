@@ -2,7 +2,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
-public class WishlistedGamesDao {
+public class WishlistedGamesDAO {
     public void addWishlistedGame(int userId, int gameId) throws SQLException {
         String sql = "INSERT INTO WishlistedGames (UserID, GameID, WishlistDateAdded) VALUES (?, ?, NOW())";
         try (Connection conn = DatabaseConnection.getConnection();

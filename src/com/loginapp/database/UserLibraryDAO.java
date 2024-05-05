@@ -2,7 +2,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
-public class UserLibraryDao {
+public class UserLibraryDAO {
     public void addGameToLibrary(int userId, int gameId) throws SQLException {
         String sql = "INSERT INTO UserLibrary (UserID, GameID, PurchaseDate, HoursPlayed) VALUES (?, ?, NOW(), 0)";
         try (Connection conn = DatabaseConnection.getConnection();

@@ -2,7 +2,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
-public class FriendsDao {
+public class FriendsDAO {
     public void addFriend(int userId, int friendId, String status) throws SQLException {
         String sql = "INSERT INTO Friends (UserID, FriendID, FriendStatus, FriendStartDate) VALUES (?, ?, ?, NOW())";
         try (Connection conn = DatabaseConnection.getConnection();

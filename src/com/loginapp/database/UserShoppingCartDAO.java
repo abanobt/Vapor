@@ -2,7 +2,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
-public class UserShoppingCartDao {
+public class UserShoppingCartDAO {
     public void addItemToCart(int userId, int gameId, int quantity) throws SQLException {
         String sql = "INSERT INTO UserShoppingCart (UserID, GameID, ItemQuantity, GameAddedDate) VALUES (?, ?, ?, NOW())";
         try (Connection conn = DatabaseConnection.getConnection();
