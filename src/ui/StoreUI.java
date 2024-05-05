@@ -1,5 +1,6 @@
 package ui;
 
+import com.loginapp.database.StoreDAO;
 import label.GameLabelSearchField;
 import label.StoreGameLabel;
 import main.PercentConstraints;
@@ -24,13 +25,8 @@ public class StoreUI extends JPanel {
         gamesPanel = new JPanel() {{
             setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
             setBorder(BorderFactory.createTitledBorder("Store Games"));
-            // SQL: retrieve all games
-            for (int i = 0; i < 4; i ++) {
-                add(new StoreGameLabel(i, SampleData.TITLES[i],
-                        SampleData.DEVELOPERS[i], SampleData.PUBLISHERS[i],
-                        SampleData.GENRE[i], SampleData.TAGS[i],
-                        SampleData.RELEASE_DATE[i],SampleData. DESCRIPTION[i], SampleData.PRICE[i],
-                        SampleData.PLATFORMS[i], SampleData.AVG_RATING[i]));
+            for (StoreGameLabel game : StoreDAO.getStoreGames()) {
+                add(game);
             }
         }};
 
