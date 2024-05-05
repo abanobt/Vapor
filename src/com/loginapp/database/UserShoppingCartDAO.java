@@ -3,6 +3,7 @@ package com.loginapp.database;
 import com.loginapp.database.DatabaseConnection;
 import label.AchievementLabel;
 import label.CartGameLabel;
+import main.VaporApp;
 
 import java.sql.Connection;
 import java.sql.Date;
@@ -49,6 +50,7 @@ public class UserShoppingCartDAO {
                 "gen.GenreName, g.ReleaseDate AS Date, g.Description AS GameDescription, g.Price AS GamePrice," +
                 "g.Platform AS GamePlatforms" +
                 "FROM UserShoppingCart usc " +
+                "WHERE usc.UserID = ?" +
                 "JOIN Games g ON usc.GameID = g.GameID " +
                 "JOIN GameDeveloper gd ON g.GameID = gd.GameID" +
                 "JOIN Developers d ON d.DeveloperID = gd.DeveloperID" +
@@ -58,6 +60,7 @@ public class UserShoppingCartDAO {
                 "JOIN Genres gen ON gen.GenreID = gg.GenreID";
         try (Connection conn = DatabaseConnection.getConnection();
              PreparedStatement stmt = conn.prepareStatement(sql)) {
+            stmt.setInt(0, VaporApp.APP_SINGLETON.getUserId());
             try (ResultSet rs = stmt.executeQuery()) {
                 while (rs.next()) {
                     int id = rs.getInt("AchievementID");
