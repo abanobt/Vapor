@@ -1,5 +1,7 @@
 package ui;
 
+import com.loginapp.database.UserLibraryDAO;
+import com.loginapp.util.Pair;
 import label.GameLabelSearchField;
 import label.LibraryGameLabel;
 import main.GameInstance;
@@ -45,28 +47,12 @@ public class LibraryUI extends JPanel {
     }
 
     public void launchGame(int gameId) {
-        try (Connection conn = DatabaseConnection.getConnection();
-             PreparedStatement stmt = conn.prepareStatement("SELECT Title FROM Games WHERE GameID = ?")) {
-            stmt.setInt(1, gameId);
-            ResultSet rs = stmt.executeQuery();
-            String gameTitle = rs.next() ? rs.getString("Title") : "Unknown Game";
-            
-            try (PreparedStatement startSessionStmt = conn.prepareStatement("INSERT INTO GameSessions (GameID, SessionStartTime) VALUES (?, NOW())", PreparedStatement.RETURN_GENERATED_KEYS)) {
-                startSessionStmt.setInt(1, gameId);
-                startSessionStmt.executeUpdate();
-                ResultSet sessionRs = startSessionStmt.getGeneratedKeys();
-                int sessionId = sessionRs.next() ? sessionRs.getInt(1) : -1;
-                activeGameInstances.put(gameId, new GameInstance(gameId, gameTitle, id -> {
-                    try (PreparedStatement endSessionStmt = conn.prepareStatement("UPDATE GameSessions SET SessionEndTime = NOW() WHERE SessionID = ?")) {
-                        endSessionStmt.setInt(1, sessionId);
-                        endSessionStmt.executeUpdate();
-                        activeGameInstances.remove(id);
-                    }
-                }));
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
+        Pair<Integer, String> gameLaunch = UserLibraryDAO.launchGame(gameId);
+        if (gameLaunch == null) {return;}
+        activeGameInstances.put(gameId, new GameInstance(gameId, gameLaunch.secondItem, id -> {
+            UserLibraryDAO.sessionEnded(gameLaunch.firstItem);
+            activeGameInstances.remove(id);
+        }));
     }
     
     public void closeGame(int gameId) {
@@ -74,30 +60,16 @@ public class LibraryUI extends JPanel {
         if (game == null) { return; }
         game.setVisible(false);
         game.dispose();
-        
-        try (Connection conn = DatabaseConnection.getConnection();
-             PreparedStatement stmt = conn.prepareStatement("UPDATE GameSessions SET SessionEndTime = NOW() WHERE GameID = ? AND SessionEndTime IS NULL")) {
-            stmt.setInt(1, gameId);
-            stmt.executeUpdate();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        
+
+        UserLibraryDAO.closeGame(gameId);
+
         activeGameInstances.remove(gameId);
-    }
+    }x
     
     public void refresh() {
         gamesPanel.removeAll();
-        try (Connection conn = DatabaseConnection.getConnection();
-             PreparedStatement stmt = conn.prepareStatement("SELECT GameID, Title FROM Games")) {
-            ResultSet rs = stmt.executeQuery();
-            while (rs.next()) {
-                int gameId = rs.getInt("GameID");
-                String title = rs.getString("Title");
-                gamesPanel.add(new LibraryGameLabel(gameId, title));
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
+        for (LibraryGameLabel game : UserLibraryDAO.getLibraryGames()) {
+            gamesPanel.add(game);
         }
         revalidate();
         repaint();
