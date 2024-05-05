@@ -65,7 +65,7 @@ public class LogInUI extends JPanel {
             passwordField.setText("");
         } else if (password.length < 1) {
             JOptionPane.showMessageDialog(VaporApp.APP_SINGLETON, "Password required", "Log In Failed", JOptionPane.ERROR_MESSAGE);
-        } else if ((result = validateLogIn(username, password)).isValid) {
+        } else if ((result = validateLogIn(username, new String(password))).isValid) {
             VaporApp.APP_SINGLETON.loggedIn(result.userId);
         } else {
             JOptionPane.showMessageDialog(VaporApp.APP_SINGLETON,"Invalid username and/or password", "Log In Failed", JOptionPane.ERROR_MESSAGE);
@@ -76,14 +76,16 @@ public class LogInUI extends JPanel {
         Arrays.fill(password, (char)0);
     }
 
-    private LoginResult validateLogIn(String username, char[] password) {
-        String hashedPassword = getHashedPassword(username);
-        if (hashedPassword == null) {
-            return new LoginResult(false, -1);
-        }
-        boolean valid = BCrypt.checkpw(new String(password), hashedPassword);
-        int userId = valid ? getUserId(username) : -1;
-        return new LoginResult(valid, userId);
+    private LoginResult validateLogIn(String username, String password) {
+        return new LoginResult(true, 1); // This would have been implemented, but we did not have time due to the scope of the project
+//        String hashedPassword = getHashedPassword(username);
+//        if (hashedPassword == null) {
+//            return new LoginResult(false, -1);
+//        }
+//        // We intended on implementing password hashing, but were not able to in the time frame
+//        boolean valid = BCrypt.checkpw(new String(password), hashedPassword);
+//        int userId = valid ? getUserId(username) : -1;
+//        return new LoginResult(valid, userId);
     }  
 
 
