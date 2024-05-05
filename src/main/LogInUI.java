@@ -11,6 +11,8 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.util.Arrays;
+import org.mindrot.jbcrypt.BCrypt;
+
 
 public class LogInUI extends JPanel {
     private static final PercentConstraints ICON_BOUNDS =  new PercentConstraints(.3f, .225f, .1f, .1f);
@@ -78,17 +80,30 @@ public class LogInUI extends JPanel {
     // Validates the login credentials, returns true if valid, false otherwise
     private boolean validateLogIn(String username, char[] password) {
         return true;
-//        String hashedPassword = getHashedPassword(username);
-//        if (hashedPassword == null) {
-//            return false;
-//        }
-//        return BCrypt.checkpw(new String(password), hashedPassword);
+       String hashedPassword = getHashedPassword(username);
+       if (hashedPassword == null) {
+           return false;
+       }
+       return BCrypt.checkpw(new String(password), hashedPassword);
     }
 
     // Gets the hashed password for this username
     // returns null if the username is invalid
     private String getHashedPassword(String username) {
-        // SQL: get hashed password
-        return null;
+        String hashedPassword = null;
+        String sql = "SELECT PasswordHash FROM Users WHERE Username = ?";
+        try (Connection conn = getConnection();
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
+            stmt.setString(1, username);
+            try (ResultSet rs = stmt.executeQuery()) {
+                if (rs.next()) {
+                    hashedPassword = rs.getString("PasswordHash");
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return hashedPassword;
     }
+    
 }
