@@ -1,5 +1,6 @@
 package label;
 
+import com.loginapp.database.UserLibraryDAO;
 import main.VaporApp;
 
 import javax.swing.BorderFactory;
@@ -34,7 +35,7 @@ public class LibraryGameLabel extends GameLabel {
 
         add(playButton = new JButton() {{
             addActionListener(e -> {
-                boolean gameSessionActive = false; // SQL: check if game session is active
+                boolean gameSessionActive = UserLibraryDAO.isSessionActive(id);
                 if (gameSessionActive) {
                     VaporApp.APP_SINGLETON.closeGame(id);
                 } else {
@@ -74,12 +75,12 @@ public class LibraryGameLabel extends GameLabel {
         int dy = getFontMetrics(font).getHeight() + 3;
 
         String playTime;
-        boolean gameSessionActive = false; // SQL: check if game session is active
+        boolean gameSessionActive = UserLibraryDAO.isSessionActive(id);
         if (gameSessionActive) {
-            float sessionTimeInHours = 25.5f; // SQL: get game session time
+            float sessionTimeInHours = UserLibraryDAO.getSessionTime(getGameId());
             playTime = "Playing: "+PLAY_TIME_FORMAT.format(sessionTimeInHours)+" Hours";
         } else {
-            float playTimeInHours = 25.5f; // SQL: get total play time
+            float playTimeInHours = UserLibraryDAO.getTotalPlaytime(getGameId());
             playTime = "Play Time: "+PLAY_TIME_FORMAT.format(playTimeInHours)+" Hours";
         }
 

@@ -3,6 +3,7 @@ package com.loginapp.database;
 import com.loginapp.util.Pair;
 import label.LibraryGameLabel;
 import main.GameInstance;
+import main.VaporApp;
 import ui.LibraryUI;
 
 import java.sql.Connection;
@@ -42,6 +43,42 @@ public class UserLibraryDAO {
         }
     }
 
+    public static int getTotalPlaytime(int gameId) {
+        String sql = "SELECT HoursPlaytime FROM UserLibrary WHERE UserID = ? AND GameID = ?";
+        try (Connection conn = DatabaseConnection.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
+            stmt.setInt(1, VaporApp.APP_SINGLETON.getUserId());
+            stmt.setInt(2, gameId);
+            stmt.executeUpdate();
+            try (ResultSet rs = stmt.executeQuery()) {
+                if (rs.next()) {
+                    return rs.getInt(1);
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return 0;
+    }
+
+    public static float getSessionTime(int gameId) {
+        String sql = "SELECT DurationMinutes FROM GameSessions WHERE UserID = ? AND GameID = ?";
+        try (Connection conn = DatabaseConnection.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
+            stmt.setInt(1, VaporApp.APP_SINGLETON.getUserId());
+            stmt.setInt(2, gameId);
+            stmt.executeUpdate();
+            try (ResultSet rs = stmt.executeQuery()) {
+                if (rs.next()) {
+                    return rs.getInt(1) / 60f;
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return 0;
+    }
+
     public static Pair<Integer, String> launchGame(int gameId) {
         try (Connection conn = DatabaseConnection.getConnection();
              PreparedStatement stmt = conn.prepareStatement("SELECT Title FROM Games WHERE GameID = ?")) {
@@ -60,6 +97,23 @@ public class UserLibraryDAO {
             e.printStackTrace();
             return null;
         }
+    }
+
+    public static boolean isSessionActive(int gameId) {
+        String sql = "SELECT COUNT(*) FROM GameSessions WHERE UserID = ? AND GameID = ?";
+        try (Connection conn = DatabaseConnection.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
+            stmt.setInt(1, VaporApp.APP_SINGLETON.getUserId());
+            stmt.setInt(2, gameId);
+            try (ResultSet rs = stmt.executeQuery()) {
+                if (rs.next()) {
+                    return rs.getInt(1) > 0;  // If count is more than 0, item is in the cart
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return false;  // Return false if there's an error or no entry found
     }
 
     public static void sessionEnded(int sessionId) {
