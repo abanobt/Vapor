@@ -1,23 +1,3 @@
-    // Gets the hashed password for this username
-    // returns null if the username is invalid
-    private String getHashedPassword(String username) {
-        String hashedPassword = null;
-        String sql = "SELECT PasswordHash FROM Users WHERE Username = ?";
-        try (Connection conn = getConnection();
-             PreparedStatement stmt = conn.prepareStatement(sql)) {
-            stmt.setString(1, username);
-            try (ResultSet rs = stmt.executeQuery()) {
-                if (rs.next()) {
-                    hashedPassword = rs.getString("PasswordHash");
-                }
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        return hashedPassword;
-    }   
-}
-
 package main;
 
 import javax.swing.*;
