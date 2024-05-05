@@ -1,5 +1,6 @@
 package ui;
 
+import com.loginapp.database.UserShoppingCartDAO;
 import label.CartGameLabel;
 import label.GameLabelSearchField;
 import main.PercentConstraints;
@@ -48,13 +49,8 @@ public class CartUI extends JPanel {
 
     public void refresh() {
         gamesPanel.removeAll();
-        for (int i = 0; i < 4; i ++) {
-            // SQL: retrieve games in cart
-            gamesPanel.add(new CartGameLabel(i, SampleData.TITLES[i],
-                    SampleData.DEVELOPERS[i], SampleData.PUBLISHERS[i],
-                    SampleData.GENRE[i], SampleData.TAGS[i],
-                    SampleData.RELEASE_DATE[i],SampleData. DESCRIPTION[i], SampleData.PRICE[i],
-                    SampleData.PLATFORMS[i], SampleData.AVG_RATING[i]));
+        for (CartGameLabel item : UserShoppingCartDAO.getCartItems()) {
+            gamesPanel.add(item);
         }
     }
 }
