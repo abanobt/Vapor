@@ -1,5 +1,8 @@
 package ui;
 
+import com.loginapp.database.UserShoppingCartDAO;
+import com.loginapp.database.WishlistedGamesDAO;
+import label.CartGameLabel;
 import label.GameLabelSearchField;
 import label.WishlistGameLabel;
 import main.PercentConstraints;
@@ -36,14 +39,8 @@ public class WishlistUI extends JPanel {
 
     public void refresh() {
         gamesPanel.removeAll();
-
-        // SQL: retrieve all wishlisted games
-        for (int i = 0; i < 4; i ++) {
-            gamesPanel.add(new WishlistGameLabel(i, SampleData.TITLES[i],
-                    SampleData.DEVELOPERS[i], SampleData.PUBLISHERS[i],
-                    SampleData.GENRE[i], SampleData.TAGS[i],
-                    SampleData.RELEASE_DATE[i],SampleData. DESCRIPTION[i], SampleData.PRICE[i],
-                    SampleData.PLATFORMS[i], SampleData.AVG_RATING[i]));
+        for (WishlistGameLabel item : WishlistedGamesDAO.getWishlistItems()) {
+            gamesPanel.add(item);
         }
     }
 }
