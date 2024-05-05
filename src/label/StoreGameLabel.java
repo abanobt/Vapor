@@ -9,7 +9,6 @@ import com.loginapp.database.UserShoppingCartDAO;
 public class StoreGameLabel extends BaseGameLabel {
     private final JButton purchaseButton;
     private final JButton wishlistButton;
-    private UserShoppingCartDAO shoppingCartDAO = new UserShoppingCartDAO();
 
     public StoreGameLabel(int id, String title, String developer, String publisher,
                           String genre, String tags, String releaseDate, String description,
@@ -19,10 +18,10 @@ public class StoreGameLabel extends BaseGameLabel {
         add(purchaseButton = new JButton() {{
             addActionListener(e -> {
                 int userId = VaporApp.APP_SINGLETON.getUserId();
-                if (shoppingCartDAO.isGameInCart(userId, id)) {
-                    shoppingCartDAO.deleteCartItem(userId, id);
+                if (UserShoppingCartDAO.isItemInCart(id)) {
+                    UserShoppingCartDAO.deleteCartItem(id);
                 } else {
-                    shoppingCartDAO.addItemToCart(userId, id, 1);
+                    UserShoppingCartDAO.addItemToCart(id, 1);
                 }
                 VaporApp.APP_SINGLETON.refreshCart(); // Refresh cart view
             });
@@ -31,10 +30,10 @@ public class StoreGameLabel extends BaseGameLabel {
         add(wishlistButton = new JButton() {{
             addActionListener(e -> {
                 int userId = VaporApp.APP_SINGLETON.getUserId();
-                if (shoppingCartDAO.isGameInWishlist(userId, id)) {
-                    shoppingCartDAO.deleteItemFromWishlist(userId, id);
+                if (UserShoppingCartDAO.isGameInWishlist(id)) {
+                    UserShoppingCartDAO.deleteItemFromWishlist(id);
                 } else {
-                    shoppingCartDAO.addItemToWishlist(userId, id);
+                    UserShoppingCartDAO.addItemToWishlist(id);
                 }
                 VaporApp.APP_SINGLETON.refreshWishlist(); // Refresh wishlist view
             });
@@ -45,7 +44,7 @@ public class StoreGameLabel extends BaseGameLabel {
     protected void updateButtons(Graphics g) {
         int userId = VaporApp.APP_SINGLETON.getUserId();
 
-        if (shoppingCartDAO.isGameInCart(userId, getId())) {
+        if (UserShoppingCartDAO.isItemInCart(getGameId())) {
             purchaseButton.setText("Remove from Cart");
             purchaseButton.setBackground(Color.RED);
         } else {
@@ -53,7 +52,7 @@ public class StoreGameLabel extends BaseGameLabel {
             purchaseButton.setBackground(Color.GREEN);
         }
 
-        if (shoppingCartDAO.isGameInWishlist(userId, getId())) {
+        if (UserShoppingCartDAO.isGameInWishlist(getGameId())) {
             wishlistButton.setText("Remove from Wishlist");
             wishlistButton.setBackground(Color.RED);
         } else {

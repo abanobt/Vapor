@@ -14,41 +14,47 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class UserShoppingCartDAO {
-    public void addItemToCart(int userId, int gameId, int quantity) throws SQLException {
+    public static void addItemToCart(int gameId, int quantity) {
         String sql = "INSERT INTO UserShoppingCart (UserID, GameID, ItemQuantity, GameAddedDate) VALUES (?, ?, ?, NOW())";
         try (Connection conn = DatabaseConnection.getConnection();
              PreparedStatement stmt = conn.prepareStatement(sql)) {
-            stmt.setInt(1, userId);
+            stmt.setInt(1, VaporApp.APP_SINGLETON.getUserId());
             stmt.setInt(2, gameId);
             stmt.setInt(3, quantity);
             stmt.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
         }
     }
 
-    public void updateCartItem(int cartId, int quantity) throws SQLException {
+    public static void updateCartItem(int cartId, int quantity) {
         String sql = "UPDATE UserShoppingCart SET ItemQuantity = ? WHERE CartID = ?";
         try (Connection conn = DatabaseConnection.getConnection();
              PreparedStatement stmt = conn.prepareStatement(sql)) {
             stmt.setInt(1, quantity);
             stmt.setInt(2, cartId);
             stmt.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
         }
     }
 
-    public void deleteCartItem(int cartId) throws SQLException {
+    public static void deleteCartItem(int cartId) {
         String sql = "DELETE FROM UserShoppingCart WHERE CartID = ?";
         try (Connection conn = DatabaseConnection.getConnection();
              PreparedStatement stmt = conn.prepareStatement(sql)) {
             stmt.setInt(1, cartId);
             stmt.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
         }
     }
 
-    public boolean isItemInCart(int userId, int gameId) {
+    public static boolean isItemInCart(int gameId) {
         String sql = "SELECT COUNT(*) FROM UserShoppingCart WHERE UserID = ? AND GameID = ?";
         try (Connection conn = DatabaseConnection.getConnection();
              PreparedStatement stmt = conn.prepareStatement(sql)) {
-            stmt.setInt(1, userId);
+            stmt.setInt(1, VaporApp.APP_SINGLETON.getUserId());
             stmt.setInt(2, gameId);
             try (ResultSet rs = stmt.executeQuery()) {
                 if (rs.next()) {
@@ -61,11 +67,11 @@ public class UserShoppingCartDAO {
         return false;  // Return false if there's an error or no entry found
     }
     
-    public boolean isGameInWishlist(int userId, int gameId) {
+    public static boolean isGameInWishlist(int gameId) {
         String sql = "SELECT COUNT(*) FROM UserWishlist WHERE UserID = ? AND GameID = ?";
         try (Connection conn = DatabaseConnection.getConnection();
              PreparedStatement stmt = conn.prepareStatement(sql)) {
-            stmt.setInt(1, userId);
+            stmt.setInt(1, VaporApp.APP_SINGLETON.getUserId());
             stmt.setInt(2, gameId);
             try (ResultSet rs = stmt.executeQuery()) {
                 if (rs.next()) {
@@ -78,23 +84,27 @@ public class UserShoppingCartDAO {
         return false;
     }
     
-    public void addItemToWishlist(int userId, int gameId) throws SQLException {
+    public static void addItemToWishlist(int gameId) {
         String sql = "INSERT INTO UserWishlist (UserID, GameID) VALUES (?, ?)";
         try (Connection conn = DatabaseConnection.getConnection();
              PreparedStatement stmt = conn.prepareStatement(sql)) {
-            stmt.setInt(1, userId);
+            stmt.setInt(1, VaporApp.APP_SINGLETON.getUserId());
             stmt.setInt(2, gameId);
             stmt.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
         }
     }
     
-    public void deleteItemFromWishlist(int userId, int gameId) throws SQLException {
+    public static void deleteItemFromWishlist(int gameId) {
         String sql = "DELETE FROM UserWishlist WHERE UserID = ? AND GameID = ?";
         try (Connection conn = DatabaseConnection.getConnection();
              PreparedStatement stmt = conn.prepareStatement(sql)) {
-            stmt.setInt(1, userId);
+            stmt.setInt(1, VaporApp.APP_SINGLETON.getUserId());
             stmt.setInt(2, gameId);
             stmt.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
         }
     }
 
