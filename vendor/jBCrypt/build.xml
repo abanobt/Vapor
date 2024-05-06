@@ -1,25 +1,30 @@
 <project name="jBCrypt" default="dist" basedir=".">
 	<description>Buildfile for the jBCrypt project</description>
 
+    <!-- Properties define common paths to simplify reference throughout the build file -->
 	<property name="src" location="src"/>
 	<property name="test-src" location="test"/>
 	<property name="build" location="build"/>
 	<property name="test-build" location="test-build"/>
 	
+	<!-- Initializes the build by creating directories needed for build outputs -->
 	<target name="init">
 		<mkdir dir="${build}"/>
 		<mkdir dir="${test-build}"/>
 	</target>
 	
+	<!-- Cleans up build directories, ensuring a clean build environment -->
 	<target name="clean">
 		<delete dir="${build}"/>
 		<delete dir="${test-build}"/>
 	</target>
 	
+	<!-- Compiles the main source files -->
 	<target name="build" depends="init">
 		<javac target="1.6" srcdir="${src}" destdir="${build}"/>
 	</target>
 	
+	<!-- Compiles the test source files, depends on `init` and `build` -->
 	<target name="build-tests" depends="init, build">
 		<javac target="1.6" srcdir="${test-src}" destdir="${test-build}">
 			<classpath>
@@ -28,6 +33,7 @@
 		</javac>
 	</target>
 	
+	<!-- Runs unit tests using JUnit, depends on `build-tests` -->
 	<target name="test" depends="build-tests">
 		<junit printsummary="on" showoutput="on">
 			<classpath>
@@ -39,6 +45,7 @@
 		</junit>
 	</target>
 	
+	<!-- Packages the compiled code into a JAR file -->
 	<target name="dist" depends="build">
 		<jar destfile="jbcrypt.jar" basedir="${build}"/>
 	</target>
