@@ -1,4 +1,4 @@
-package com.vaporapp.ui.ui;
+package com.vaporapp.screen;
 
 import com.loginapp.database.UserShoppingCartDAO;
 import com.vaporapp.ui.label.CartGameLabel;

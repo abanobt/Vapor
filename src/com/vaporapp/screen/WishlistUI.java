@@ -1,4 +1,4 @@
-package com.vaporapp.ui.ui;
+package com.vaporapp.screen;
 
 import com.loginapp.database.WishlistedGamesDAO;
 import com.vaporapp.ui.label.WishlistGameLabel;
