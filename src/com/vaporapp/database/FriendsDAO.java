@@ -43,7 +43,7 @@ public class FriendsDAO {
     }
 
     public static void sendMessage(int friendshipId, String message) {
-        String sql = "INSERT INTO Messages (friendshipId, messageDetails, messageDate) VALUES (?, ?, NOW())";
+        String sql = "INSERT INTO UserMessages (friendshipId, messageDetails, messageDate) VALUES (?, ?, NOW())";
         try (Connection conn = DatabaseConnection.getConnection();
              PreparedStatement stmt = conn.prepareStatement(sql)) {
             stmt.setInt(1, friendshipId);
