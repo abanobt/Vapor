@@ -28,8 +28,7 @@ public class AchievementsDAO {
     public static List<AchievementLabel> getAchievementsWithGameTitlesAndUnlockStatus() {
         List<AchievementLabel> achievements = new ArrayList<>();
         String sql = "SELECT au.AchievementID, g.Title AS GameTitle, a.AchievementName, a.AchievementDescription, a.AchievementPoints, a.UnlockCondition, " +
-                     "au.AchievementID IS NOT NULL AS IsUnlocked, " + // True if unlocked, false if not
-                     "au.AchievementsUnlocked " +
+                     "au.AchievementID IS NOT NULL AS IsUnlocked, au.AchievementUnlockDate " + // True if unlocked, false if not
                      "FROM Achievements a " +
                      "JOIN Games g ON a.GameID = g.GameID " +
                      "LEFT JOIN AchievementsUnlocked au ON a.AchievementID = au.AchievementID ";

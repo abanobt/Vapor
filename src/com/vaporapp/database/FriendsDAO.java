@@ -24,7 +24,7 @@ public class FriendsDAO {
     }
 
     public static void updateFriendStatus(int friendshipId, String status) throws SQLException {
-        String sql = "UPDATE Friends SET FriendStatus = ? WHERE FriendshipID = ?";
+        String sql = "UPDATE Friends SET FriendStatus = ? WHERE FriendshipId = ?";
         try (Connection conn = DatabaseConnection.getConnection();
              PreparedStatement stmt = conn.prepareStatement(sql)) {
             stmt.setString(1, status);
@@ -34,7 +34,7 @@ public class FriendsDAO {
     }
 
     public static void deleteFriend(int friendshipId) throws SQLException {
-        String sql = "DELETE FROM Friends WHERE FriendshipID = ?";
+        String sql = "DELETE FROM Friends WHERE FriendshipId = ?";
         try (Connection conn = DatabaseConnection.getConnection();
              PreparedStatement stmt = conn.prepareStatement(sql)) {
             stmt.setInt(1, friendshipId);
@@ -43,7 +43,7 @@ public class FriendsDAO {
     }
 
     public static void sendMessage(int friendshipId, String message) {
-        String sql = "INSERT INTO UserMessages (friendshipId, messageDetails, messageDate) VALUES (?, ?, NOW())";
+        String sql = "INSERT INTO UserMessages (FriendshipId, MessageDetails, MessageDate) VALUES (?, ?, NOW())";
         try (Connection conn = DatabaseConnection.getConnection();
              PreparedStatement stmt = conn.prepareStatement(sql)) {
             stmt.setInt(1, friendshipId);
@@ -56,17 +56,20 @@ public class FriendsDAO {
 
     public static List<FriendLabel> fetchFriends() {
         List<FriendLabel> friends = new ArrayList<>();
-        String sql = "SELECT friendshipId, username, status, lastUpdated FROM Friends WHERE userId = ?"; // Adjust based on your schema
+        String sql = "SELECT f.FriendshipId, u.Username, f.FriendStatus, f.FriendStartDate " +
+                "FROM Friends f " +
+                "JOIN Users u ON f.FriendID = u.UserID " +
+                "WHERE u.UserID = ? "; // Adjust based on your schema
         try (Connection conn = DatabaseConnection.getConnection();
              PreparedStatement stmt = conn.prepareStatement(sql)) {
             stmt.setInt(1, VaporApp.APP_SINGLETON.getUserId()); // Assuming you have a way to get the current user's ID
             ResultSet rs = stmt.executeQuery();
             while (rs.next()) {
-                int friendshipId = rs.getInt("friendshipId");
-                String username = rs.getString("username");
-                String status = rs.getString("status");
-                String lastUpdated = rs.getString("lastUpdated");
-                friends.add(new FriendLabel(friendshipId, username, status, lastUpdated));
+                int friendshipId = rs.getInt("FriendshipId");
+                String username = rs.getString("Username");
+                String status = rs.getString("FriendStatus");
+                String friendStartDate = rs.getDate("FriendStartDate").toString();
+                friends.add(new FriendLabel(friendshipId, username, status, friendStartDate));
             }
         } catch (SQLException ex) {
             ex.printStackTrace();
@@ -76,16 +79,21 @@ public class FriendsDAO {
 
     public static List<MessageLabel> fetchMessages(int friendshipId) {
         List<MessageLabel> messages = new ArrayList<>();
-        String sql = "SELECT messageId, senderId, messageDetails, messageDate FROM UserMessages WHERE friendshipId = ?";
+        String sql = "SELECT um.MessageId, um.SenderID, um.MessageDetails, um.MessageDate " +
+                "FROM UserMessages um " +
+                "JOIN Friends f ON f.UserID = um.SenderID OR f.UserID = um.ReceiverID " +
+                "WHERE f.UserID = ? AND (um.SenderID = ? OR um.ReceiverID = ?)";
         try (Connection conn = DatabaseConnection.getConnection();
              PreparedStatement stmt = conn.prepareStatement(sql)) {
-            stmt.setInt(1, friendshipId);
+            stmt.setInt(1, VaporApp.APP_SINGLETON.getUserId());
+            stmt.setInt(2, friendshipId);
+            stmt.setInt(3, friendshipId);
             ResultSet rs = stmt.executeQuery();
             while (rs.next()) {
-                int messageId = rs.getInt("messageId");
-                boolean isSender = rs.getInt("senderId") == VaporApp.APP_SINGLETON.getUserId(); // Adjust depending on how you store sender
-                String message = rs.getString("messageDetails");
-                String date = rs.getString("messageDate");
+                int messageId = rs.getInt("MessageId");
+                boolean isSender = rs.getInt("SenderId") == VaporApp.APP_SINGLETON.getUserId(); // Adjust depending on how you store sender
+                String message = rs.getString("MessageDetails");
+                String date = rs.getString("MessageDate");
                 messages.add(new MessageLabel(messageId, "Friend Name", isSender, message, date));
             }
         } catch (SQLException ex) {

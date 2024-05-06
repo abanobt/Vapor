@@ -58,17 +58,19 @@ public class UserSettingsDAO {
              PreparedStatement stmt = conn.prepareStatement(sql)) {
             stmt.setInt(1, VaporApp.APP_SINGLETON.getUserId());
             try (ResultSet rs = stmt.executeQuery()) {
-                String userName = rs.getString("Username");
-                String email = rs.getString("Email");
-                String date = rs.getDate("RegistrationDate").toString();
-                String role = rs.getString("UserRole");
-                String profilePic = rs.getString("ProfilePicURL");
-                return new Pair<>("<html>"
-                        + "Username: " + userName + "<br>"
-                        + "Email: " + email + "<br>"
-                        + "RegistrationDate: " + date + "<br>"
-                        + "Role: " + role + "<br>"
-                        +"</html>", profilePic);
+                if (rs.next()) {
+                    String userName = rs.getString("Username");
+                    String email = rs.getString("Email");
+                    String date = rs.getDate("RegistrationDate").toString();
+                    String role = rs.getString("UserRole");
+                    String profilePic = rs.getString("ProfilePicURL");
+                    return new Pair<>("<html>"
+                            + "Username: " + userName + "<br>"
+                            + "Email: " + email + "<br>"
+                            + "RegistrationDate: " + date + "<br>"
+                            + "Role: " + role + "<br>"
+                            + "</html>", profilePic);
+                }
             } catch (Exception e) {
                 e.printStackTrace();
             }

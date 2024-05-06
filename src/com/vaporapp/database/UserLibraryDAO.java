@@ -42,7 +42,7 @@ public class UserLibraryDAO {
     }
 
     public static int getTotalPlaytime(int gameId) {
-        String sql = "SELECT HoursPlaytime FROM UserLibrary WHERE UserID = ? AND GameID = ?";
+        String sql = "SELECT HoursPlayed FROM UserLibrary WHERE UserID = ? AND GameID = ?";
         try (Connection conn = DatabaseConnection.getConnection();
              PreparedStatement stmt = conn.prepareStatement(sql)) {
             stmt.setInt(1, VaporApp.APP_SINGLETON.getUserId());
