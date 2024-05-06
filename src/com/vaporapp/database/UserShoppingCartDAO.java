@@ -94,7 +94,7 @@ public class UserShoppingCartDAO {
 
                     // Remove game from wishlist if it's there
                     try (Connection conn1 = DatabaseConnection.getConnection();
-                         PreparedStatement removeWishlistStmt = conn1.prepareStatement("DELETE FROM UserWishlist WHERE UserID = ? AND GameID = ?")) {
+                         PreparedStatement removeWishlistStmt = conn1.prepareStatement("DELETE FROM WishlistedGames WHERE UserID = ? AND GameID = ?")) {
                         removeWishlistStmt.setInt(1, VaporApp.APP_SINGLETON.getUserId());
                         removeWishlistStmt.setInt(2, gameId);
                         removeWishlistStmt.executeUpdate();
@@ -109,7 +109,7 @@ public class UserShoppingCartDAO {
     }
     
     public static boolean isGameInWishlist(int gameId) {
-        String sql = "SELECT COUNT(*) FROM UserWishlist WHERE UserID = ? AND GameID = ?";
+        String sql = "SELECT COUNT(*) FROM WishlistedGames WHERE UserID = ? AND GameID = ?";
         try (Connection conn = DatabaseConnection.getConnection();
              PreparedStatement stmt = conn.prepareStatement(sql)) {
             stmt.setInt(1, VaporApp.APP_SINGLETON.getUserId());
@@ -126,7 +126,7 @@ public class UserShoppingCartDAO {
     }
     
     public static void addItemToWishlist(int gameId) {
-        String sql = "INSERT INTO UserWishlist (UserID, GameID) VALUES (?, ?)";
+        String sql = "INSERT INTO WishlistedGames (UserID, GameID) VALUES (?, ?)";
         try (Connection conn = DatabaseConnection.getConnection();
              PreparedStatement stmt = conn.prepareStatement(sql)) {
             stmt.setInt(1, VaporApp.APP_SINGLETON.getUserId());
@@ -138,7 +138,7 @@ public class UserShoppingCartDAO {
     }
     
     public static void deleteItemFromWishlist(int gameId) {
-        String sql = "DELETE FROM UserWishlist WHERE UserID = ? AND GameID = ?";
+        String sql = "DELETE FROM WishlistedGames WHERE UserID = ? AND GameID = ?";
         try (Connection conn = DatabaseConnection.getConnection();
              PreparedStatement stmt = conn.prepareStatement(sql)) {
             stmt.setInt(1, VaporApp.APP_SINGLETON.getUserId());

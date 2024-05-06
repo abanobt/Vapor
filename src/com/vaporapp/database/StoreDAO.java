@@ -14,7 +14,7 @@ public class StoreDAO {
         List<StoreGameLabel> wishlist = new ArrayList<>();
         String sql = "SELECT g.GameID, g.Title AS GameTitle, d.DeveloperName AS DevName, p.PublisherName AS PubName," +
                 "gen.GenreName, g.ReleaseDate AS Date, g.Description AS GameDescription, g.Price AS GamePrice, " +
-                "g.Platform AS GamePlatforms " +
+                "g.Platform AS GamePlatforms, g.AverageRating AS AvgRating " +
                 "FROM Games g " +
                 "JOIN GameDeveloper gd ON g.GameID = gd.GameID " +
                 " JOIN Developers d ON d.DeveloperID = gd.DeveloperID " +
