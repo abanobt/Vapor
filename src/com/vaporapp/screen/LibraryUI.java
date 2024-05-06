@@ -1,7 +1,7 @@
 package com.vaporapp.screen;
 
 import com.vaporapp.database.UserLibraryDAO;
-import com.loginapp.util.Pair;
+import com.vaporapp.util.Pair;
 import com.vaporapp.ui.label.LibraryGameLabel;
 import com.vaporapp.ui.main.GameInstance;
 import com.vaporapp.ui.main.PercentConstraints;

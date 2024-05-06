@@ -1,6 +1,6 @@
 package com.vaporapp.database;
 
-import com.loginapp.util.Pair;
+import com.vaporapp.util.Pair;
 import com.vaporapp.ui.label.ActivityHistoryLabel;
 import com.vaporapp.ui.label.TransactionHistoryLabel;
 import com.vaporapp.ui.main.VaporApp;
