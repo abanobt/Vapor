@@ -153,16 +153,16 @@ public class UserShoppingCartDAO {
         List<CartGameLabel> cartItems = new ArrayList<>();
         String sql = "SELECT usc.CartID, g.Title AS GameTitle, d.DeveloperName AS DevName, p.PublisherName AS PubName, " +
                 "gen.GenreName, g.ReleaseDate AS Date, g.Description AS GameDescription, g.Price AS GamePrice, " +
-                "g.Platform AS GamePlatforms " +
+                "g.Platform AS GamePlatforms, g.AverageRating AS AvgRating " +
                 "FROM UserShoppingCart usc " +
-                "WHERE usc.UserID = ? " +
                 "JOIN Games g ON usc.GameID = g.GameID " +
                 "JOIN GameDeveloper gd ON g.GameID = gd.GameID " +
                 "JOIN Developers d ON d.DeveloperID = gd.DeveloperID " +
                 "JOIN GamePublisher gp ON g.GameID = gp.GameID " +
                 "JOIN Publishers p ON p.PublisherID = gp.PublisherID " +
                 "JOIN GameGenre gg ON gg.GameID = g.GameID " +
-                "JOIN Genres gen ON gen.GenreID = gg.GenreID ";
+                "JOIN Genres gen ON gen.GenreID = gg.GenreID " +
+                "WHERE usc.UserID = ? ";
         try (Connection conn = DatabaseConnection.getConnection();
              PreparedStatement stmt = conn.prepareStatement(sql)) {
             stmt.setInt(1, VaporApp.APP_SINGLETON.getUserId());

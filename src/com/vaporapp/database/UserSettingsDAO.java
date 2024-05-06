@@ -51,9 +51,9 @@ public class UserSettingsDAO {
     public static Pair<String, String> getUserInfo() {
         String sql = "SELECT u.Username, u.Email, u.RegistrationDate, r.RoleName AS UserRole, u.ProfilePicURL " +
                 "FROM Users u " +
-                "WHERE u.UserID = ? " +
                 "JOIN UserRoles ur ON ur.UserID = u.USERID " +
-                "JOIN Roles r ON r.RoleID = ur.RoleID ";
+                "JOIN Roles r ON r.RoleID = ur.RoleID " +
+                "WHERE u.UserID = ? ";
         try (Connection conn = DatabaseConnection.getConnection();
              PreparedStatement stmt = conn.prepareStatement(sql)) {
             stmt.setInt(1, VaporApp.APP_SINGLETON.getUserId());
