@@ -1,4 +1,4 @@
-package com.loginapp.database;
+package com.vaporapp.database;
 
 import com.vaporapp.ui.label.FriendLabel;
 import com.vaporapp.ui.label.MessageLabel;

@@ -1,4 +1,4 @@
-package com.loginapp.database;
+package com.vaporapp.database;
 
 import com.vaporapp.ui.label.CartGameLabel;
 import com.vaporapp.ui.main.VaporApp;

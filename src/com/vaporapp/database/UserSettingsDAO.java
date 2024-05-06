@@ -1,4 +1,4 @@
-package com.loginapp.database;
+package com.vaporapp.database;
 
 import com.loginapp.util.Pair;
 import com.vaporapp.ui.label.ActivityHistoryLabel;
