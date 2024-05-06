@@ -19,7 +19,7 @@ public class StoreDAO {
                 "JOIN GameDeveloper gd ON g.GameID = gd.GameID " +
                 " JOIN Developers d ON d.DeveloperID = gd.DeveloperID " +
                 "JOIN GamePublisher gp ON g.GameID = gp.GameID " +
-                "JOIN Publishers p ON p.DeveloperID = gp.DeveloperID " +
+                "JOIN Publishers p ON p.PublisherID = gp.PublisherID " +
                 "JOIN GameGenre gg ON gg.GameID = g.GameID " +
                 "JOIN Genres gen ON gen.GenreID = gg.GenreID ";
         try (Connection conn = DatabaseConnection.getConnection();

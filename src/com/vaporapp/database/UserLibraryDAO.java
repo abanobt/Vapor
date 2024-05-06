@@ -47,7 +47,6 @@ public class UserLibraryDAO {
              PreparedStatement stmt = conn.prepareStatement(sql)) {
             stmt.setInt(1, VaporApp.APP_SINGLETON.getUserId());
             stmt.setInt(2, gameId);
-            stmt.executeUpdate();
             try (ResultSet rs = stmt.executeQuery()) {
                 if (rs.next()) {
                     return rs.getInt(1);
@@ -65,7 +64,6 @@ public class UserLibraryDAO {
              PreparedStatement stmt = conn.prepareStatement(sql)) {
             stmt.setInt(1, VaporApp.APP_SINGLETON.getUserId());
             stmt.setInt(2, gameId);
-            stmt.executeUpdate();
             try (ResultSet rs = stmt.executeQuery()) {
                 if (rs.next()) {
                     return rs.getInt(1) / 60f;
