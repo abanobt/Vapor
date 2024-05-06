@@ -1,6 +1,6 @@
 package com.vaporapp.screen;
 
-import com.loginapp.database.FriendsDAO;
+import com.vaporapp.database.FriendsDAO;
 import com.vaporapp.ui.label.FriendLabel;
 import com.vaporapp.ui.label.MessageLabel;
 import com.vaporapp.ui.main.PercentConstraints;
@@ -15,8 +15,6 @@ import javax.swing.JScrollBar;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 
-// Settings
-// Transaction history
 public class FriendsUI extends JPanel {
     public static final ImageIcon FRIENDS_ICON = new ImageIcon("res/friends.png");
 

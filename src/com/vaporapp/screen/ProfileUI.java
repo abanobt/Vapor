@@ -1,6 +1,6 @@
 package com.vaporapp.screen;
 
-import com.loginapp.database.UserSettingsDAO;
+import com.vaporapp.database.UserSettingsDAO;
 import com.loginapp.util.Pair;
 import com.vaporapp.ui.label.ActivityHistoryLabel;
 import com.vaporapp.ui.main.PercentConstraints;

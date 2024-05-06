@@ -1,6 +1,6 @@
 package com.vaporapp.screen;
 
-import com.loginapp.database.AchievementsDAO;
+import com.vaporapp.database.AchievementsDAO;
 import com.vaporapp.ui.label.AchievementLabel;
 import com.vaporapp.ui.main.PercentConstraints;
 import com.vaporapp.ui.main.PercentLayout;

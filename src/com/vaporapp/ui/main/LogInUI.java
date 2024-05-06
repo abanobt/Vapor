@@ -9,7 +9,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Arrays;
 
-import com.loginapp.database.DatabaseConnection;
+import com.vaporapp.database.DatabaseConnection;
 
 public class LogInUI extends JPanel {
     private static final PercentConstraints ICON_BOUNDS =  new PercentConstraints(.3f, .225f, .1f, .1f);

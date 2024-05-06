@@ -1,6 +1,6 @@
 package com.vaporapp.screen;
 
-import com.loginapp.database.UserLibraryDAO;
+import com.vaporapp.database.UserLibraryDAO;
 import com.loginapp.util.Pair;
 import com.vaporapp.ui.label.LibraryGameLabel;
 import com.vaporapp.ui.main.GameInstance;

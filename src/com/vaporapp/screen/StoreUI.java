@@ -1,6 +1,6 @@
 package com.vaporapp.screen;
 
-import com.loginapp.database.StoreDAO;
+import com.vaporapp.database.StoreDAO;
 import com.vaporapp.ui.main.PercentLayout;
 import com.vaporapp.ui.label.GameLabelSearchField;
 import com.vaporapp.ui.label.StoreGameLabel;

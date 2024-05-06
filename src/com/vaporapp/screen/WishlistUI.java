@@ -1,6 +1,6 @@
 package com.vaporapp.screen;
 
-import com.loginapp.database.WishlistedGamesDAO;
+import com.vaporapp.database.WishlistedGamesDAO;
 import com.vaporapp.ui.label.WishlistGameLabel;
 import com.vaporapp.ui.main.PercentConstraints;
 import com.vaporapp.ui.main.PercentLayout;

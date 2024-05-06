@@ -1,6 +1,6 @@
 package com.vaporapp.ui.label;
 
-import com.loginapp.database.UserLibraryDAO;
+import com.vaporapp.database.UserLibraryDAO;
 import com.vaporapp.ui.main.VaporApp;
 
 import javax.swing.BorderFactory;

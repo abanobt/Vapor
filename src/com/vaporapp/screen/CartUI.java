@@ -1,6 +1,6 @@
 package com.vaporapp.screen;
 
-import com.loginapp.database.UserShoppingCartDAO;
+import com.vaporapp.database.UserShoppingCartDAO;
 import com.vaporapp.ui.label.CartGameLabel;
 import com.vaporapp.ui.main.PercentConstraints;
 import com.vaporapp.ui.main.PercentLayout;

@@ -5,7 +5,7 @@ import java.awt.Color;
 import java.awt.Graphics;
 
 import com.vaporapp.ui.main.VaporApp;
-import com.loginapp.database.UserShoppingCartDAO;
+import com.vaporapp.database.UserShoppingCartDAO;
 
 public class StoreGameLabel extends BaseGameLabel {
     private final JButton purchaseButton;
