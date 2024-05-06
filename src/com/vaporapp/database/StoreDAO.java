@@ -17,7 +17,7 @@ public class StoreDAO {
                 "g.Platform AS GamePlatforms " +
                 "FROM Games g " +
                 "JOIN GameDeveloper gd ON g.GameID = gd.GameID " +
-                "JOIN Developers d ON d.DeveloperID = gd.DeveloperID " +
+                " JOIN Developers d ON d.DeveloperID = gd.DeveloperID " +
                 "JOIN GamePublisher gp ON g.GameID = gp.GameID " +
                 "JOIN Publishers p ON p.DeveloperID = gp.DeveloperID " +
                 "JOIN GameGenre gg ON gg.GameID = g.GameID " +

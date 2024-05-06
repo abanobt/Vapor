@@ -76,7 +76,7 @@ public class FriendsDAO {
 
     public static List<MessageLabel> fetchMessages(int friendshipId) {
         List<MessageLabel> messages = new ArrayList<>();
-        String sql = "SELECT messageId, senderId, messageDetails, messageDate FROM Messages WHERE friendshipId = ?";
+        String sql = "SELECT messageId, senderId, messageDetails, messageDate FROM UserMessages WHERE friendshipId = ?";
         try (Connection conn = DatabaseConnection.getConnection();
              PreparedStatement stmt = conn.prepareStatement(sql)) {
             stmt.setInt(1, friendshipId);
