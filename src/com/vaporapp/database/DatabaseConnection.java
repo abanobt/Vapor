@@ -6,7 +6,7 @@ import java.sql.SQLException;
 
 public class DatabaseConnection {
     // URL, username and password should be configured according to your database settings
-    private static final String URL = "jdbc:mysql://localhost:3306/com.vaporapp";
+    private static final String URL = "jdbc:mysql://localhost:3306/VaporDB";
     private static String USER = "root";  // Update it with your MySQL username
     private static String PASSWORD = "password";  // Update it with your MySQL password
 

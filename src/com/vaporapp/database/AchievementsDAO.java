@@ -29,10 +29,10 @@ public class AchievementsDAO {
         List<AchievementLabel> achievements = new ArrayList<>();
         String sql = "SELECT au.AchievementID, g.Title AS GameTitle, a.AchievementName, a.AchievementDescription, a.AchievementPoints, a.UnlockCondition, " +
                      "au.AchievementID IS NOT NULL AS IsUnlocked, " + // True if unlocked, false if not
-                     "au.AchievementsUnlocked" +
+                     "au.AchievementsUnlocked " +
                      "FROM Achievements a " +
                      "JOIN Games g ON a.GameID = g.GameID " +
-                     "LEFT JOIN AchievementsUnlocked au ON a.AchievementID = au.AchievementID";
+                     "LEFT JOIN AchievementsUnlocked au ON a.AchievementID = au.AchievementID ";
         try (Connection conn = DatabaseConnection.getConnection();
              PreparedStatement stmt = conn.prepareStatement(sql)) {
             try (ResultSet rs = stmt.executeQuery()) {

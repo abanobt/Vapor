@@ -49,11 +49,11 @@ public class UserSettingsDAO {
     }
 
     public static Pair<String, String> getUserInfo() {
-        String sql = "SELECT u.Username, u.Email, u.RegistrationDate, r.RoleName AS UserRole, u.ProfilePicURL" +
-                "FROM Users u" +
-                "WHERE u.UserID = ?" +
-                "JOIN UserRoles ur ON ur.UserID = u.USERID" +
-                "JOIN Roles r ON r.RoleID = ur.RoleID";
+        String sql = "SELECT u.Username, u.Email, u.RegistrationDate, r.RoleName AS UserRole, u.ProfilePicURL " +
+                "FROM Users u " +
+                "WHERE u.UserID = ? " +
+                "JOIN UserRoles ur ON ur.UserID = u.USERID " +
+                "JOIN Roles r ON r.RoleID = ur.RoleID ";
         try (Connection conn = DatabaseConnection.getConnection();
              PreparedStatement stmt = conn.prepareStatement(sql)) {
             stmt.setInt(1, VaporApp.APP_SINGLETON.getUserId());
@@ -81,9 +81,9 @@ public class UserSettingsDAO {
 
     public static List<TransactionHistoryLabel> getTransactionHistory() {
         List<TransactionHistoryLabel> transactions = new ArrayList<>();
-        String sql = "SELECT t.TransactionID, g.Title AS GameTitle, t.TransactionDate, t.TransactionAmount, t.PaymentMethod" +
-                "FROM Transactions t" +
-                "JOIN Games g ON t.GameID = g.GameID";
+        String sql = "SELECT t.TransactionID, g.Title AS GameTitle, t.TransactionDate, t.TransactionAmount, t.PaymentMethod " +
+                "FROM Transactions t " +
+                "JOIN Games g ON t.GameID = g.GameID ";
         try (Connection conn = DatabaseConnection.getConnection();
              PreparedStatement stmt = conn.prepareStatement(sql)) {
             try (ResultSet rs = stmt.executeQuery()) {
@@ -106,7 +106,7 @@ public class UserSettingsDAO {
 
     public static List<ActivityHistoryLabel> getActivityHistory() {
         List<ActivityHistoryLabel> activities = new ArrayList<>();
-        String sql = "SELECT * FROM UserActivityLogs" +
+        String sql = "SELECT * FROM UserActivityLogs " +
                 "WHERE ActivityID = ?";
         try (Connection conn = DatabaseConnection.getConnection();
              PreparedStatement stmt = conn.prepareStatement(sql)) {
