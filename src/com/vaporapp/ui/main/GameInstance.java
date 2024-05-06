@@ -1,4 +1,4 @@
-package main;
+package com.vaporapp.ui.main;
 
 import javax.swing.JFrame;
 import java.awt.Dimension;

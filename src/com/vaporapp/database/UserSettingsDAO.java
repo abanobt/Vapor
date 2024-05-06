@@ -1,12 +1,10 @@
 package com.loginapp.database;
 
 import com.loginapp.util.Pair;
-import label.ActivityHistoryLabel;
-import label.CartGameLabel;
-import label.TransactionHistoryLabel;
-import main.VaporApp;
+import com.vaporapp.ui.label.ActivityHistoryLabel;
+import com.vaporapp.ui.label.TransactionHistoryLabel;
+import com.vaporapp.ui.main.VaporApp;
 
-import java.net.URL;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;

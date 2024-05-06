@@ -1,6 +1,6 @@
-package label;
+package com.vaporapp.ui.label;
 
-import main.VaporApp;
+import com.vaporapp.ui.main.VaporApp;
 
 import javax.swing.BorderFactory;
 import javax.swing.JButton;

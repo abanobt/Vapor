@@ -1,7 +1,7 @@
 package com.loginapp.database;
 
-import label.WishlistGameLabel;
-import main.VaporApp;
+import com.vaporapp.ui.label.WishlistGameLabel;
+import com.vaporapp.ui.main.VaporApp;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;

@@ -1,10 +1,10 @@
-package ui;
+package com.vaporapp.ui.ui;
 
 import com.loginapp.database.StoreDAO;
-import label.GameLabelSearchField;
-import label.StoreGameLabel;
-import main.PercentConstraints;
-import main.PercentLayout;
+import com.vaporapp.ui.main.PercentLayout;
+import com.vaporapp.ui.label.GameLabelSearchField;
+import com.vaporapp.ui.label.StoreGameLabel;
+import com.vaporapp.ui.main.PercentConstraints;
 
 import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;

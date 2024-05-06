@@ -1,4 +1,4 @@
-package label;
+package com.vaporapp.ui.label;
 
 import javax.swing.BorderFactory;
 import javax.swing.JComponent;
@@ -6,23 +6,17 @@ import javax.swing.border.BevelBorder;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.Graphics;
-import java.text.DecimalFormat;
 
-public class TransactionHistoryLabel extends JComponent {
-    private static final DecimalFormat MONEY_FORMAT = new DecimalFormat() {{
-        setMaximumFractionDigits(2);
-        setMinimumIntegerDigits(2);
-    }};
-
+public class ActivityHistoryLabel extends JComponent {
     private final int id;
     private final String[] lines;
 
-    public TransactionHistoryLabel(int id, String gameTitle, String date, float price, String  paymentMethod) {
+    public ActivityHistoryLabel(int id, String type, String date, String details) {
         this.id = id;
         lines = new String[3];
-        lines[0] = "Game: "+gameTitle;
+        lines[0] = "Type: "+type;
         lines[1] = "Date: "+date;
-        lines[2] = "Amount: $"+MONEY_FORMAT.format(price) + " | Method: " + paymentMethod;
+        lines[2] = "Details: "+details;
         setBorder(BorderFactory.createCompoundBorder(BorderFactory.createEmptyBorder(5, 5, 5, 5),
                 BorderFactory.createBevelBorder(BevelBorder.RAISED)));
         setMinimumSize(new Dimension(30, 80));
@@ -30,7 +24,7 @@ public class TransactionHistoryLabel extends JComponent {
         setMaximumSize(new Dimension(2000, 80));
     }
 
-    public final int getTransactionId() { return id; }
+    public final int getActivityId() { return id; }
 
     @Override
     protected void paintComponent(Graphics g) {

@@ -1,9 +1,9 @@
-package ui;
+package com.vaporapp.ui.ui;
 
 import com.loginapp.database.AchievementsDAO;
-import label.AchievementLabel;
-import main.PercentConstraints;
-import main.PercentLayout;
+import com.vaporapp.ui.label.AchievementLabel;
+import com.vaporapp.ui.main.PercentConstraints;
+import com.vaporapp.ui.main.PercentLayout;
 
 import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;

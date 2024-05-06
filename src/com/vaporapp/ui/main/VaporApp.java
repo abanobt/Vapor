@@ -1,6 +1,6 @@
-package main;
+package com.vaporapp.ui.main;
 
-import ui.MainUI;
+import com.vaporapp.ui.ui.MainUI;
 
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;

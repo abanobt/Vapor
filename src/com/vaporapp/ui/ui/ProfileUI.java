@@ -1,12 +1,12 @@
-package ui;
+package com.vaporapp.ui.ui;
 
 import com.loginapp.database.UserSettingsDAO;
 import com.loginapp.util.Pair;
-import label.ActivityHistoryLabel;
-import label.TransactionHistoryLabel;
-import main.IconLabel;
-import main.PercentConstraints;
-import main.PercentLayout;
+import com.vaporapp.ui.label.ActivityHistoryLabel;
+import com.vaporapp.ui.main.PercentConstraints;
+import com.vaporapp.ui.main.PercentLayout;
+import com.vaporapp.ui.label.TransactionHistoryLabel;
+import com.vaporapp.ui.main.IconLabel;
 
 import javax.imageio.ImageIO;
 import javax.swing.BorderFactory;

@@ -1,4 +1,4 @@
-package main;
+package com.vaporapp.ui.main;
 
 import java.awt.Component;
 import java.awt.Container;

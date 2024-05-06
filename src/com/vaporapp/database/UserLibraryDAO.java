@@ -1,10 +1,8 @@
 package com.loginapp.database;
 
 import com.loginapp.util.Pair;
-import label.LibraryGameLabel;
-import main.GameInstance;
-import main.VaporApp;
-import ui.LibraryUI;
+import com.vaporapp.ui.label.LibraryGameLabel;
+import com.vaporapp.ui.main.VaporApp;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;

@@ -1,4 +1,4 @@
-package main;
+package com.vaporapp.ui.main;
 
 public final class PercentConstraints {
     public static final PercentConstraints FULL = new PercentConstraints(0,0,1,1);

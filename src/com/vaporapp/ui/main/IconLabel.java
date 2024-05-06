@@ -1,4 +1,4 @@
-package main;
+package com.vaporapp.ui.main;
 
 import javax.swing.JComponent;
 import java.awt.Graphics;

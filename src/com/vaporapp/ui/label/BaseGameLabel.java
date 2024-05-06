@@ -1,4 +1,4 @@
-package label;
+package com.vaporapp.ui.label;
 
 import javax.swing.BorderFactory;
 import javax.swing.border.BevelBorder;

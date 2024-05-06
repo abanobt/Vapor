@@ -1,17 +1,13 @@
-package ui;
+package com.vaporapp.ui.ui;
 
 import com.loginapp.database.UserLibraryDAO;
 import com.loginapp.util.Pair;
-import label.GameLabelSearchField;
-import label.LibraryGameLabel;
-import main.GameInstance;
-import main.PercentConstraints;
-import main.PercentLayout;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import com.loginapp.database.DatabaseConnection;
+import com.vaporapp.ui.label.LibraryGameLabel;
+import com.vaporapp.ui.main.GameInstance;
+import com.vaporapp.ui.main.PercentConstraints;
+import com.vaporapp.ui.main.PercentLayout;
+import com.vaporapp.ui.label.GameLabelSearchField;
+
 import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
 import javax.swing.ImageIcon;

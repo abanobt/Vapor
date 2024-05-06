@@ -1,12 +1,11 @@
-package ui;
+package com.vaporapp.ui.ui;
 
-import com.loginapp.database.UserSettingsDAO;
 import com.loginapp.database.UserShoppingCartDAO;
-import label.CartGameLabel;
-import label.GameLabelSearchField;
-import main.PercentConstraints;
-import main.PercentLayout;
-import main.VaporApp;
+import com.vaporapp.ui.label.CartGameLabel;
+import com.vaporapp.ui.main.PercentConstraints;
+import com.vaporapp.ui.main.PercentLayout;
+import com.vaporapp.ui.main.VaporApp;
+import com.vaporapp.ui.label.GameLabelSearchField;
 
 import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;

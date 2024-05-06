@@ -1,10 +1,10 @@
-package label;
+package com.vaporapp.ui.label;
 
 import javax.swing.JButton;
 import java.awt.Color;
 import java.awt.Graphics;
 
-import main.VaporApp;
+import com.vaporapp.ui.main.VaporApp;
 import com.loginapp.database.UserShoppingCartDAO;
 
 public class CartGameLabel extends BaseGameLabel {

@@ -1,4 +1,4 @@
-package main;
+package com.vaporapp.ui.main;
 
 import javax.swing.*;
 import java.awt.*;
@@ -10,7 +10,6 @@ import java.sql.SQLException;
 import java.util.Arrays;
 
 import com.loginapp.database.DatabaseConnection;
-import org.mindrot.jbcrypt.BCrypt;
 
 public class LogInUI extends JPanel {
     private static final PercentConstraints ICON_BOUNDS =  new PercentConstraints(.3f, .225f, .1f, .1f);

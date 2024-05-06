@@ -1,4 +1,4 @@
-package ui;
+package com.vaporapp.ui.ui;
 
 import javax.swing.ImageIcon;
 import javax.swing.JPanel;

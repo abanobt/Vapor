@@ -1,6 +1,6 @@
 package com.loginapp.database;
 
-import label.AchievementLabel;
+import com.vaporapp.ui.label.AchievementLabel;
 
 import java.sql.Connection;
 import java.sql.Date;

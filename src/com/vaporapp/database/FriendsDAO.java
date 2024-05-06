@@ -1,8 +1,8 @@
 package com.loginapp.database;
 
-import label.FriendLabel;
-import label.MessageLabel;
-import main.VaporApp;
+import com.vaporapp.ui.label.FriendLabel;
+import com.vaporapp.ui.label.MessageLabel;
+import com.vaporapp.ui.main.VaporApp;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;

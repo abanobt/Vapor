@@ -1,12 +1,10 @@
-package ui;
+package com.vaporapp.ui.ui;
 
-import com.loginapp.database.DatabaseConnection;
 import com.loginapp.database.FriendsDAO;
-import label.FriendLabel;
-import label.MessageLabel;
-import main.PercentConstraints;
-import main.PercentLayout;
-import main.VaporApp;
+import com.vaporapp.ui.label.FriendLabel;
+import com.vaporapp.ui.label.MessageLabel;
+import com.vaporapp.ui.main.PercentConstraints;
+import com.vaporapp.ui.main.PercentLayout;
 
 import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
@@ -16,12 +14,6 @@ import javax.swing.JPanel;
 import javax.swing.JScrollBar;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.List;
 
 // Settings
 // Transaction history

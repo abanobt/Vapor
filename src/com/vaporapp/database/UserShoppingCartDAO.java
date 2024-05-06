@@ -1,12 +1,9 @@
 package com.loginapp.database;
 
-import com.loginapp.database.DatabaseConnection;
-import label.AchievementLabel;
-import label.CartGameLabel;
-import main.VaporApp;
+import com.vaporapp.ui.label.CartGameLabel;
+import com.vaporapp.ui.main.VaporApp;
 
 import java.sql.Connection;
-import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
