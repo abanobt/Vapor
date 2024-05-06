@@ -19,6 +19,9 @@ public class VaporApp extends JFrame {
     private int userId;
 
     public static void main(String[] args) {
+        String userName = args[0];
+        String password = args[1];
+        DatabaseConnection.init(userName, password);
         APP_SINGLETON = new VaporApp();
         APP_SINGLETON.start();
         APP_SINGLETON.setVisible(true);
