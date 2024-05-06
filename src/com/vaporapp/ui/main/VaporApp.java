@@ -1,5 +1,6 @@
 package com.vaporapp.ui.main;
 
+import com.vaporapp.database.DatabaseConnection;
 import com.vaporapp.screen.MainUI;
 
 import javax.swing.ImageIcon;
