@@ -26,7 +26,7 @@ public class StoreDAO {
              PreparedStatement stmt = conn.prepareStatement(sql)) {
             try (ResultSet rs = stmt.executeQuery()) {
                 while (rs.next()) {
-                    int id = rs.getInt("WishlistID");
+                    int id = rs.getInt("GameID");
                     String gameTitle = rs.getString("GameTitle");
                     String devName = rs.getString("DevName");
                     String pubName = rs.getString("PubName");
